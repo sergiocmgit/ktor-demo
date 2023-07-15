@@ -20,9 +20,9 @@ class InMemoryScooters : ScooterRepository {
     override fun findAll(): List<Scooter> = scooters
 
     override fun update(scooter: Scooter) {
-        scooters.first { it.id == scooter.id }
-            .let { scooters.remove(it) }
-            .let { scooters.add(scooter) }
+        scooters.indexOfFirst { it.id == scooter.id }
+            .also { scooters.removeAt(it) }
+            .also { scooters.add(it, scooter) }
     }
 
     private fun buildScooter(id: Int, status: ScooterStatus, userId: String) =

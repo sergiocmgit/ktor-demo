@@ -11,22 +11,22 @@ import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.NotFound
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.call
-import io.ktor.server.resources.get
 import io.ktor.server.resources.post
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 
 fun Route.scooters(
     getScooters: GetScooters,
     lockScooter: LockScooter,
-) = route("") {
+) = route("/scooters") {
 
-    get<Scooters> {
+    get {
         call.respond(getScooters())
     }
 
-    post<Scooters.Id.Lock> { params ->
+    post<Id.Lock> { params ->
         val request = LockScooterRequest(scooterId = params.parent.scooterId, userId = params.userId)
         val result = lockScooter(request)
         when (result) {
