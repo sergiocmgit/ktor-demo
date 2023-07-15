@@ -24,10 +24,12 @@ fun Application.module() {
     }
     install(Resources)
     install(Routing) {
+        val inMemoryScooters = InMemoryScooters()
+        val inMemoryUsers = InMemoryUsers()
         scooters(
-            GetScootersUseCase(InMemoryScooters()),
-            LockScooterUseCase(InMemoryUsers(), InMemoryScooters())
+            GetScootersUseCase(inMemoryScooters),
+            LockScooterUseCase(inMemoryUsers, inMemoryScooters)
         )
-        users(GetUsersUseCase(InMemoryUsers()))
+        users(GetUsersUseCase(inMemoryUsers))
     }
 }
