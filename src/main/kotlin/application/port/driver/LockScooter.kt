@@ -6,8 +6,8 @@ interface LockScooter {
 }
 
 data class LockScooterRequest(
-    val userId: String,
     val scooterId: Int,
+    val userId: String,
 )
 
 sealed interface LockScooterResponse

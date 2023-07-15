@@ -3,7 +3,7 @@ package com.example.application.port.driven
 import com.example.application.domain.User
 import com.example.application.domain.UserId
 
-interface UserFinder {
+interface UserRepository {
 
     fun findAll(): List<User>
 

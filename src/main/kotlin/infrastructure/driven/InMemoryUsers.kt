@@ -5,9 +5,9 @@ import com.example.application.domain.User
 import com.example.application.domain.UserId
 import com.example.application.domain.UserStatus.ACTIVE
 import com.example.application.domain.UserStatus.DEACTIVATED
-import com.example.application.port.driven.UserFinder
+import com.example.application.port.driven.UserRepository
 
-class InMemoryUsers : UserFinder {
+class InMemoryUsers : UserRepository {
 
     private val users: List<User> = listOf(
         User(UserId(USER_ID_1), Name("Elisa"), ACTIVE),
