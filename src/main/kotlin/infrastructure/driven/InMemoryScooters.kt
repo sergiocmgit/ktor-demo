@@ -15,9 +15,7 @@ class InMemoryScooters : ScooterFinder {
         buildScooter(SCOOTER_ID_3, RUNNING, USER_ID_3)
     )
 
-    override fun find(scooterId: ScooterId): Scooter? {
-        TODO("Not yet implemented")
-    }
+    override fun find(scooterId: ScooterId): Scooter? = scooters.find { it.id == scooterId }
 
     override fun findAll(): List<Scooter> = scooters
 
