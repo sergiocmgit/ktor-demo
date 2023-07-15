@@ -12,5 +12,5 @@ class GetScootersUseCase(
     override fun invoke(): GetScootersResponse =
         scooterFinder.findAll()
             .map { ScooterResponse(it.id.value, it.status, it.lastRider.value) }
-            .let{ GetScootersResponse(it) }
+            .let { GetScootersResponse(it) }
 }
