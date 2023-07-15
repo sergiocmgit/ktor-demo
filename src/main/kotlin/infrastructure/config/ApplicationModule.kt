@@ -1,8 +1,11 @@
 package com.example.infrastructure.config
 
 import com.example.application.usecase.GetScootersUseCase
+import com.example.application.usecase.GetUsersUseCase
 import com.example.infrastructure.driven.InMemoryScooters
+import com.example.infrastructure.driven.InMemoryUsers
 import com.example.infrastructure.driver.scooters
+import com.example.infrastructure.driver.users
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -19,5 +22,6 @@ fun Application.module() {
     }
     install(Routing) {
         scooters(GetScootersUseCase(InMemoryScooters()))
+        users(GetUsersUseCase(InMemoryUsers()))
     }
 }

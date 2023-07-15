@@ -5,5 +5,7 @@ import com.example.application.domain.UserId
 
 interface UserFinder {
 
+    fun findAll(): List<User>
+
     fun find(userId: UserId): User?
 }
