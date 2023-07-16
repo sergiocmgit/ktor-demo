@@ -3,6 +3,7 @@ package com.example.infrastructure.config
 import com.example.application.usecase.GetScootersUseCase
 import com.example.application.usecase.GetUsersUseCase
 import com.example.application.usecase.LockScooterUseCase
+import com.example.application.usecase.RunScooterUseCase
 import com.example.infrastructure.driven.InMemoryScooters
 import com.example.infrastructure.driven.InMemoryUsers
 import com.example.infrastructure.driver.scooters
@@ -28,6 +29,7 @@ fun Application.module() {
         val inMemoryUsers = InMemoryUsers()
         scooters(
             GetScootersUseCase(inMemoryScooters),
+            RunScooterUseCase(inMemoryUsers, inMemoryScooters),
             LockScooterUseCase(inMemoryUsers, inMemoryScooters)
         )
         users(GetUsersUseCase(inMemoryUsers))
