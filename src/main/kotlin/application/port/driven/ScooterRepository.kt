@@ -1,13 +1,15 @@
 package com.example.application.port.driven
 
+import arrow.core.Either
 import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterId
+import com.example.application.domain.ScooterNotFound
 
 interface ScooterRepository {
 
-    fun find(scooterId: ScooterId): Scooter?
-
     fun findAll(): List<Scooter>
+
+    fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter>
 
     fun update(scooter: Scooter)
 }
