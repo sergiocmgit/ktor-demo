@@ -1,5 +1,9 @@
 package com.example.application.domain
 
-sealed interface DomainError
+sealed interface RunScooterError
 
-data object ScooterInvalidStatus : DomainError
+data object UserNotFound : RunScooterError
+data object ScooterNotFound : RunScooterError
+
+data object ScooterInvalidStatus : RunScooterError
+data object UserInvalidStatus : RunScooterError

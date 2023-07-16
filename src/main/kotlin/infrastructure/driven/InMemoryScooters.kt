@@ -1,7 +1,11 @@
 package com.example.infrastructure.driven
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterId
+import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.ScooterStatus
 import com.example.application.domain.ScooterStatus.LOCKED
 import com.example.application.domain.ScooterStatus.RUNNING
@@ -16,7 +20,9 @@ class InMemoryScooters : ScooterRepository {
         buildScooter(SCOOTER_ID_3, LOCKED, USER_ID_3)
     )
 
-    override fun find(scooterId: ScooterId): Scooter? = scooters.find { it.id == scooterId }
+    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
+        scooters.find { it.id == scooterId }?.right()
+            ?: ScooterNotFound.left()
 
     override fun findAll(): List<Scooter> = scooters
 

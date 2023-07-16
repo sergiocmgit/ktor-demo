@@ -1,8 +1,12 @@
 package com.example.infrastructure.driven
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.example.application.domain.Name
 import com.example.application.domain.User
 import com.example.application.domain.UserId
+import com.example.application.domain.UserNotFound
 import com.example.application.domain.UserStatus.ACTIVE
 import com.example.application.domain.UserStatus.DEACTIVATED
 import com.example.application.port.driven.UserRepository
@@ -17,5 +21,7 @@ class InMemoryUsers : UserRepository {
 
     override fun findAll(): List<User> = users
 
-    override fun find(userId: UserId): User? = users.find { it.id == userId }
+    override fun find(userId: UserId): Either<UserNotFound, User> =
+        users.find { it.id == userId }?.right()
+            ?: UserNotFound.left()
 }

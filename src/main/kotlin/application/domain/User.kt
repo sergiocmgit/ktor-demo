@@ -1,5 +1,8 @@
 package com.example.application.domain
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.example.application.domain.UserStatus.ACTIVE
 
 @JvmInline
@@ -19,5 +22,7 @@ data class User(
     val status: UserStatus,
 ) {
 
-    fun isActive(): Boolean = status == ACTIVE
+    fun checkIsActive(): Either<UserInvalidStatus, User> =
+        if (status == ACTIVE) right()
+        else UserInvalidStatus.left()
 }
