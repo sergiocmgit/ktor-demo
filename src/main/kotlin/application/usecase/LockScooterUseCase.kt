@@ -21,7 +21,8 @@ class LockScooterUseCase(
         val user = userRepository.find(UserId(request.userId)) ?: return UserNotFound(request.userId)
         if (!user.isActive()) return UserStatusInvalid
         val scooter = scooterRepository.find(ScooterId(request.scooterId)) ?: return ScooterNotFound(request.scooterId)
-        scooterRepository.update(scooter.locked())
+        scooter.locked(user.id)
+            .map { scooterRepository.update(it) }
         return ScooterLocked(scooter.id.value)
     }
 }

@@ -21,7 +21,8 @@ class RunScooterUseCase(
         val user = userRepository.find(UserId(request.userId)) ?: return UserNotFound(request.userId)
         if (!user.isActive()) return UserStatusInvalid
         val scooter = scooterRepository.find(ScooterId(request.scooterId)) ?: return ScooterNotFound(request.scooterId)
-        scooterRepository.update(scooter.running(user.id))
+        scooter.running(user.id)
+            .map { scooterRepository.update(it) }
         return ScooterRunning(scooter.id.value)
     }
 }
