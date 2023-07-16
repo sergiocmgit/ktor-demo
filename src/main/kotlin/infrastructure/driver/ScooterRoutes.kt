@@ -1,15 +1,14 @@
 package com.example.infrastructure.driver
 
+import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.ScooterNotFound
+import com.example.application.domain.UserInvalidStatus
+import com.example.application.domain.UserNotFound
 import com.example.application.port.driver.GetScooters
 import com.example.application.port.driver.LockScooter
 import com.example.application.port.driver.LockScooterRequest
 import com.example.application.port.driver.RunScooter
 import com.example.application.port.driver.RunScooterRequest
-import com.example.application.port.driver.ScooterLocked
-import com.example.application.port.driver.ScooterNotFound
-import com.example.application.port.driver.ScooterRunning
-import com.example.application.port.driver.UserNotFound
-import com.example.application.port.driver.UserStatusInvalid
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.NotFound
 import io.ktor.http.HttpStatusCode.Companion.OK
@@ -26,29 +25,31 @@ fun Route.scooters(
     lockScooter: LockScooter,
 ) = route("/scooters") {
 
-    get {
-        call.respond(getScooters())
-    }
+    get { call.respond(getScooters()) }
 
     post<Id.Run> { params ->
         val request = RunScooterRequest(scooterId = params.parent.scooterId, userId = params.userId)
-        val result = runScooter(request)
-        when(result) {
-            is ScooterRunning -> call.respond(OK)
-            is ScooterNotFound -> call.respond(NotFound, result.javaClass.simpleName)
-            is UserNotFound -> call.respond(NotFound, result.javaClass.simpleName)
-            UserStatusInvalid -> call.respond(BadRequest, result.javaClass.simpleName)
-        }
+        runScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
+            when (it) {
+                ScooterInvalidStatus,
+                UserInvalidStatus -> call.respond(BadRequest, it.javaClass.simpleName)
+
+                ScooterNotFound,
+                UserNotFound -> call.respond(NotFound, it.javaClass.simpleName)
+            }
+        })
     }
 
     post<Id.Lock> { params ->
         val request = LockScooterRequest(scooterId = params.parent.scooterId, userId = params.userId)
-        val result = lockScooter(request)
-        when (result) {
-            is ScooterLocked -> call.respond(OK)
-            is ScooterNotFound -> call.respond(NotFound, result.javaClass.simpleName)
-            is UserNotFound -> call.respond(NotFound, result.javaClass.simpleName)
-            UserStatusInvalid -> call.respond(BadRequest, result.javaClass.simpleName)
-        }
+        lockScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
+            when (it) {
+                ScooterInvalidStatus,
+                UserInvalidStatus -> call.respond(BadRequest, it.javaClass.simpleName)
+
+                ScooterNotFound,
+                UserNotFound -> call.respond(NotFound, it.javaClass.simpleName)
+            }
+        })
     }
 }
