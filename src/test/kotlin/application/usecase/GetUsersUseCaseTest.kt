@@ -7,7 +7,8 @@ import com.example.fixtures.builders.buildUser
 import com.example.fixtures.builders.buildUserResponse
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions
+import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class GetUsersUseCaseTest {
@@ -25,6 +26,7 @@ class GetUsersUseCaseTest {
 
         val result = useCase()
 
-        Assertions.assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(expected)
+        verify { userRepository.findAll() }
     }
 }

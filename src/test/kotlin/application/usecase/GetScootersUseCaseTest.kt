@@ -7,6 +7,7 @@ import com.example.fixtures.builders.buildScooter
 import com.example.fixtures.builders.buildScooterResponse
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -26,5 +27,6 @@ class GetScootersUseCaseTest {
         val result = useCase()
 
         assertThat(result).isEqualTo(expected)
+        verify { scooterRepository.findAll() }
     }
 }
