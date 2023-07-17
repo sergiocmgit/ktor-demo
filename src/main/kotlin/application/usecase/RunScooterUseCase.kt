@@ -5,11 +5,11 @@ import arrow.core.flatMap
 import com.example.application.domain.RunScooterError
 import com.example.application.domain.ScooterId
 import com.example.application.domain.UserId
-import com.example.application.port.driven.ScooterRepository
-import com.example.application.port.driven.UserRepository
-import com.example.application.port.driver.RunScooter
-import com.example.application.port.driver.RunScooterRequest
-import com.example.application.port.driver.ScooterRunning
+import com.example.application.port.input.RunScooter
+import com.example.application.port.input.RunScooterRequest
+import com.example.application.port.input.ScooterRunning
+import com.example.application.port.output.ScooterRepository
+import com.example.application.port.output.UserRepository
 
 class RunScooterUseCase(
     private val userRepository: UserRepository,

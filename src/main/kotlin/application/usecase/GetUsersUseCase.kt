@@ -1,9 +1,9 @@
 package com.example.application.usecase
 
-import com.example.application.port.driven.UserRepository
-import com.example.application.port.driver.GetUsers
-import com.example.application.port.driver.GetUsersResponse
-import com.example.application.port.driver.UserResponse
+import com.example.application.port.input.GetUsers
+import com.example.application.port.input.GetUsersResponse
+import com.example.application.port.input.UserResponse
+import com.example.application.port.output.UserRepository
 
 class GetUsersUseCase(
     private val userRepository: UserRepository,

@@ -1,14 +1,14 @@
-package com.example.infrastructure.driver
+package com.example.infrastructure.adapter.input
 
 import com.example.application.domain.ScooterInvalidStatus
 import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.UserNotFound
-import com.example.application.port.driver.GetScooters
-import com.example.application.port.driver.LockScooter
-import com.example.application.port.driver.LockScooterRequest
-import com.example.application.port.driver.RunScooter
-import com.example.application.port.driver.RunScooterRequest
+import com.example.application.port.input.GetScooters
+import com.example.application.port.input.LockScooter
+import com.example.application.port.input.LockScooterRequest
+import com.example.application.port.input.RunScooter
+import com.example.application.port.input.RunScooterRequest
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.NotFound
 import io.ktor.http.HttpStatusCode.Companion.OK

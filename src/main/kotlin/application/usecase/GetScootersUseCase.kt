@@ -1,9 +1,9 @@
 package com.example.application.usecase
 
-import com.example.application.port.driven.ScooterRepository
-import com.example.application.port.driver.GetScooters
-import com.example.application.port.driver.GetScootersResponse
-import com.example.application.port.driver.ScooterResponse
+import com.example.application.port.input.GetScooters
+import com.example.application.port.input.GetScootersResponse
+import com.example.application.port.input.ScooterResponse
+import com.example.application.port.output.ScooterRepository
 
 class GetScootersUseCase(
     private val scooterRepository: ScooterRepository,

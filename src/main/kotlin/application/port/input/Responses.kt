@@ -1,4 +1,4 @@
-package com.example.application.port.driver
+package com.example.application.port.input
 
 data class ScooterRunning(val scooterId: Int)
 

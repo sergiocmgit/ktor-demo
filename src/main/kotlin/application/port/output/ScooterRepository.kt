@@ -1,4 +1,4 @@
-package com.example.application.port.driven
+package com.example.application.port.output
 
 import arrow.core.Either
 import com.example.application.domain.Scooter

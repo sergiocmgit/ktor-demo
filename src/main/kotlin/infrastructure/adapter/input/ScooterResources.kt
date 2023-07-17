@@ -1,4 +1,4 @@
-package com.example.infrastructure.driver
+package com.example.infrastructure.adapter.input
 
 import io.ktor.resources.Resource
 

@@ -5,11 +5,11 @@ import arrow.core.flatMap
 import com.example.application.domain.LockScooterError
 import com.example.application.domain.ScooterId
 import com.example.application.domain.UserId
-import com.example.application.port.driven.ScooterRepository
-import com.example.application.port.driven.UserRepository
-import com.example.application.port.driver.LockScooter
-import com.example.application.port.driver.LockScooterRequest
-import com.example.application.port.driver.ScooterLocked
+import com.example.application.port.input.LockScooter
+import com.example.application.port.input.LockScooterRequest
+import com.example.application.port.input.ScooterLocked
+import com.example.application.port.output.ScooterRepository
+import com.example.application.port.output.UserRepository
 
 class LockScooterUseCase(
     private val userRepository: UserRepository,

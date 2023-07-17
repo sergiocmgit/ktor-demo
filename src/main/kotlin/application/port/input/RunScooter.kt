@@ -1,4 +1,4 @@
-package com.example.application.port.driver
+package com.example.application.port.input
 
 import arrow.core.Either
 import com.example.application.domain.RunScooterError

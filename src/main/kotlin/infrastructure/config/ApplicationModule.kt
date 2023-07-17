@@ -4,10 +4,10 @@ import com.example.application.usecase.GetScootersUseCase
 import com.example.application.usecase.GetUsersUseCase
 import com.example.application.usecase.LockScooterUseCase
 import com.example.application.usecase.RunScooterUseCase
-import com.example.infrastructure.driven.InMemoryScooters
-import com.example.infrastructure.driven.InMemoryUsers
-import com.example.infrastructure.driver.scooters
-import com.example.infrastructure.driver.users
+import com.example.infrastructure.adapter.input.scooters
+import com.example.infrastructure.adapter.input.users
+import com.example.infrastructure.adapter.output.InMemoryScooters
+import com.example.infrastructure.adapter.output.InMemoryUsers
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install

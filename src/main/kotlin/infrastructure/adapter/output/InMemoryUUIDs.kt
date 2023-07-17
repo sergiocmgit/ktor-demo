@@ -1,4 +1,4 @@
-package com.example.infrastructure.driven
+package com.example.infrastructure.adapter.output
 
 const val SCOOTER_ID_1 = 1
 const val SCOOTER_ID_2 = 2

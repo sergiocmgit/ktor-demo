@@ -1,4 +1,4 @@
-package com.example.infrastructure.driven
+package com.example.infrastructure.adapter.output
 
 import arrow.core.Either
 import arrow.core.left
@@ -9,7 +9,7 @@ import com.example.application.domain.UserId
 import com.example.application.domain.UserNotFound
 import com.example.application.domain.UserStatus.ACTIVE
 import com.example.application.domain.UserStatus.DEACTIVATED
-import com.example.application.port.driven.UserRepository
+import com.example.application.port.output.UserRepository
 
 class InMemoryUsers : UserRepository {
 

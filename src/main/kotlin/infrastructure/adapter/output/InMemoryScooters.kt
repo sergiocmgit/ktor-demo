@@ -1,4 +1,4 @@
-package com.example.infrastructure.driven
+package com.example.infrastructure.adapter.output
 
 import arrow.core.Either
 import arrow.core.left
@@ -10,7 +10,7 @@ import com.example.application.domain.ScooterStatus
 import com.example.application.domain.ScooterStatus.LOCKED
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
-import com.example.application.port.driven.ScooterRepository
+import com.example.application.port.output.ScooterRepository
 
 class InMemoryScooters : ScooterRepository {
 

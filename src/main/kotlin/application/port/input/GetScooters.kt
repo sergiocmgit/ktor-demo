@@ -1,4 +1,4 @@
-package com.example.application.port.driver
+package com.example.application.port.input
 
 import com.example.application.domain.ScooterStatus
 import kotlinx.serialization.Serializable

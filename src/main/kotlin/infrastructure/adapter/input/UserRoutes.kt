@@ -1,6 +1,6 @@
-package com.example.infrastructure.driver
+package com.example.infrastructure.adapter.input
 
-import com.example.application.port.driver.GetUsers
+import com.example.application.port.input.GetUsers
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
