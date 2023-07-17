@@ -9,7 +9,7 @@ interface GetUsers {
 
 @Serializable
 data class GetUsersResponse(
-    val scooters: List<UserResponse>
+    val users: List<UserResponse>
 )
 
 @Serializable

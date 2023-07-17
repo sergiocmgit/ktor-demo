@@ -1,0 +1,30 @@
+package application.usecase
+
+import com.example.application.port.input.GetUsersResponse
+import com.example.application.port.output.UserRepository
+import com.example.application.usecase.GetUsersUseCase
+import com.example.fixtures.builders.buildUser
+import com.example.fixtures.builders.buildUserResponse
+import io.mockk.every
+import io.mockk.mockk
+import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.Test
+
+class GetUsersUseCaseTest {
+
+    private val userRepository = mockk<UserRepository>()
+
+    private val useCase = GetUsersUseCase(userRepository)
+
+    @Test
+    fun `should get all users`() {
+        val users = listOf(buildUser(), buildUser())
+        val usersResponse = listOf(buildUserResponse(), buildUserResponse())
+        val expected = GetUsersResponse(users = usersResponse)
+        every { userRepository.findAll() } returns users
+
+        val result = useCase()
+
+        Assertions.assertThat(result).isEqualTo(expected)
+    }
+}
