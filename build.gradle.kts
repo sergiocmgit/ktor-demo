@@ -30,6 +30,7 @@ dependencies {
     implementation("io.ktor:ktor-server-resources:$ktor_version")
     implementation("io.arrow-kt:arrow-core:1.2.0")
 
+    testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
 
