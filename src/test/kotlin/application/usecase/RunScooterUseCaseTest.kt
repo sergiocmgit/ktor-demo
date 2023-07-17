@@ -2,6 +2,7 @@ package application.usecase
 
 import arrow.core.left
 import arrow.core.right
+import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterInvalidStatus
 import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.ScooterStatus.RUNNING
@@ -78,9 +79,8 @@ class RunScooterUseCaseTest {
 
     @Test
     fun `should fail when cannot find scooter`() {
-        val lockedScooter = buildScooter()
         every { userRepository.find(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(lockedScooter.id) } returns ScooterNotFound.left()
+        every { scooterRepository.find(ScooterId(scooterId)) } returns ScooterNotFound.left()
 
         val result = useCase(RunScooterRequest(scooterId, userId))
 
