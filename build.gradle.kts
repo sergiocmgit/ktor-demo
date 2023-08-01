@@ -22,16 +22,19 @@ repositories {
 }
 
 dependencies {
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    implementation("io.arrow-kt:arrow-core:1.2.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("io.ktor:ktor-server-resources:$ktor_version")
-    implementation("io.arrow-kt:arrow-core:1.2.0")
 
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")

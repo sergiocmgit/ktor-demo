@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.infrastructure.config.module
+import com.example.infrastructure.config.rootModule
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -10,6 +10,6 @@ fun main() {
         factory = Netty,
         port = 8080,
         host = "localhost",
-        module = Application::module
+        module = Application::rootModule
     ).start(wait = true)
 }
