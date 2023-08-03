@@ -7,7 +7,7 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.resources.Resources
 import kotlinx.serialization.json.Json
 
-fun Application.routesModule() {
+fun Application.testRoutesModule() {
     install(ContentNegotiation) { json(Json) }
     install(Resources)
 }
