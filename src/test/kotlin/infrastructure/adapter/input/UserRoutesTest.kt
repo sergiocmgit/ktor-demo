@@ -1,11 +1,8 @@
-package infrastructure.adapter.input
+package com.example.infrastructure.adapter.input
 
-import com.example.application.port.input.GetScooters
-import com.example.application.port.input.GetScootersResponse
-import com.example.application.port.input.LockScooter
-import com.example.application.port.input.RunScooter
-import com.example.fixtures.builders.buildScooterResponse
-import com.example.infrastructure.adapter.input.scooters
+import com.example.application.port.input.GetUsers
+import com.example.application.port.input.GetUsersResponse
+import com.example.fixtures.builders.buildUserResponse
 import com.example.infrastructure.config.testRoutesModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.request.get
@@ -20,21 +17,19 @@ import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ScooterRoutesTest {
+class UserRoutesTest {
 
-    private val getScooters = mockk<GetScooters>()
-    private val runScooter = mockk<RunScooter>()
-    private val lockScooter = mockk<LockScooter>()
+    private val getUsers = mockk<GetUsers>()
 
     private val objectMapper = jacksonObjectMapper()
 
     @Test
-    fun `should get all the scooters`() = testApplication {
+    fun `should get all the users`() = testApplication {
         appSetup()
-        val expected = GetScootersResponse(listOf(buildScooterResponse()))
-        every { getScooters() } returns expected
+        val expected = GetUsersResponse(listOf(buildUserResponse()))
+        every { getUsers() } returns expected
 
-        val response = client.get("/scooters")
+        val response = client.get("/users")
         val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
 
         assertThat(response.status).isEqualTo(OK)
@@ -44,7 +39,7 @@ class ScooterRoutesTest {
     private fun ApplicationTestBuilder.appSetup() = application {
         testRoutesModule()
         install(Routing) {
-            scooters(getScooters, runScooter, lockScooter)
+            users(getUsers)
         }
     }
 }
