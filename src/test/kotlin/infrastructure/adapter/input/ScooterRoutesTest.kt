@@ -4,8 +4,10 @@ import arrow.core.right
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.LockScooter
+import com.example.application.port.input.LockScooterRequest
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterRequest
+import com.example.application.port.input.ScooterLocked
 import com.example.application.port.input.ScooterRunning
 import com.example.fixtures.builders.buildScooterResponse
 import com.example.infrastructure.adapter.input.scooters
@@ -59,6 +61,20 @@ class ScooterRoutesTest {
 
         assertThat(response.status).isEqualTo(OK)
         verify { runScooter(request) }
+    }
+
+    @Test
+    fun `should lock a scooter`() = testApplication {
+        appSetup()
+        val scooterId = 1
+        val userId = "A"
+        val request = LockScooterRequest(scooterId, userId)
+        every { lockScooter(request) } returns ScooterLocked(scooterId).right()
+
+        val response = client.post("/scooters/$scooterId/lock/$userId")
+
+        assertThat(response.status).isEqualTo(OK)
+        verify { lockScooter(request) }
     }
 
     private fun ApplicationTestBuilder.appSetup() = application {
