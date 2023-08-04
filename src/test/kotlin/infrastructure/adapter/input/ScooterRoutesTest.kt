@@ -1,14 +1,18 @@
 package infrastructure.adapter.input
 
+import arrow.core.right
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.LockScooter
 import com.example.application.port.input.RunScooter
+import com.example.application.port.input.RunScooterRequest
+import com.example.application.port.input.ScooterRunning
 import com.example.fixtures.builders.buildScooterResponse
 import com.example.infrastructure.adapter.input.scooters
 import com.example.infrastructure.config.testRoutesModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.request.get
+import io.ktor.client.request.post
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.install
@@ -17,6 +21,7 @@ import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,6 +44,21 @@ class ScooterRoutesTest {
 
         assertThat(response.status).isEqualTo(OK)
         assertThat(responseObject).isEqualTo(expected)
+        verify { getScooters() }
+    }
+
+    @Test
+    fun `should run a scooter`() = testApplication {
+        appSetup()
+        val scooterId = 1
+        val userId = "A"
+        val request = RunScooterRequest(scooterId, userId)
+        every { runScooter(request) } returns ScooterRunning(scooterId).right()
+
+        val response = client.post("/scooters/$scooterId/run/$userId")
+
+        assertThat(response.status).isEqualTo(OK)
+        verify { runScooter(request) }
     }
 
     private fun ApplicationTestBuilder.appSetup() = application {
