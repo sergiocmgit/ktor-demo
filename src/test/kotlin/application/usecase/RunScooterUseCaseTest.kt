@@ -22,11 +22,13 @@ import com.example.fixtures.builders.buildUser
 import com.example.fixtures.isLeftWith
 import com.example.fixtures.isRightWith
 import io.mockk.Ordering.ORDERED
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class RunScooterUseCaseTest {
@@ -38,6 +40,9 @@ class RunScooterUseCaseTest {
 
     private val userId = DEFAULT_USER_ID
     private val scooterId = DEFAULT_SCOOTER_ID
+
+    @BeforeEach
+    fun setUp() = clearAllMocks()
 
     @Test
     fun `should run scooter`() {

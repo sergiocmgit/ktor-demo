@@ -12,9 +12,11 @@ import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class UserRoutesTest {
@@ -22,6 +24,9 @@ class UserRoutesTest {
     private val getUsers = mockk<GetUsers>()
 
     private val objectMapper = jacksonObjectMapper()
+
+    @BeforeEach
+    fun setUp() = clearAllMocks()
 
     @Test
     fun `should get all the users`() = testApplication {

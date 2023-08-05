@@ -21,10 +21,12 @@ import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class ScooterRoutesTest {
@@ -34,6 +36,9 @@ class ScooterRoutesTest {
     private val lockScooter = mockk<LockScooter>()
 
     private val objectMapper = jacksonObjectMapper()
+
+    @BeforeEach
+    fun setUp() = clearAllMocks()
 
     @Test
     fun `should get all the scooters`() = testApplication {
