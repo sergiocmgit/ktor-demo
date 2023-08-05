@@ -9,10 +9,12 @@ import kotlinx.serialization.json.Json
 
 fun Application.routesModule() {
     install(ContentNegotiation) {
-        json(Json {
-            prettyPrint = true
-            isLenient = true
-        })
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+            },
+        )
     }
     install(Resources)
 }

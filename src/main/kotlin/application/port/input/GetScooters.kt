@@ -9,7 +9,7 @@ interface GetScooters {
 
 @Serializable
 data class GetScootersResponse(
-    val scooters: List<ScooterResponse>
+    val scooters: List<ScooterResponse>,
 )
 
 @Serializable

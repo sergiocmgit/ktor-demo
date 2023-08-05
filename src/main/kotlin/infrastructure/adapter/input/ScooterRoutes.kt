@@ -24,7 +24,6 @@ fun Route.scooters(
     runScooter: RunScooter,
     lockScooter: LockScooter,
 ) = route("/scooters") {
-
     get { call.respond(getScooters()) }
 
     post<Id.Run> { params ->
@@ -32,10 +31,12 @@ fun Route.scooters(
         runScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
                 ScooterInvalidStatus,
-                UserInvalidStatus -> call.respond(BadRequest, it.javaClass.simpleName)
+                UserInvalidStatus,
+                -> call.respond(BadRequest, it.javaClass.simpleName)
 
                 ScooterNotFound,
-                UserNotFound -> call.respond(NotFound, it.javaClass.simpleName)
+                UserNotFound,
+                -> call.respond(NotFound, it.javaClass.simpleName)
             }
         })
     }
@@ -45,10 +46,12 @@ fun Route.scooters(
         lockScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
                 ScooterInvalidStatus,
-                UserInvalidStatus -> call.respond(BadRequest, it.javaClass.simpleName)
+                UserInvalidStatus,
+                -> call.respond(BadRequest, it.javaClass.simpleName)
 
                 ScooterNotFound,
-                UserNotFound -> call.respond(NotFound, it.javaClass.simpleName)
+                UserNotFound,
+                -> call.respond(NotFound, it.javaClass.simpleName)
             }
         })
     }

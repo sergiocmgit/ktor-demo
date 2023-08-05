@@ -10,6 +10,6 @@ fun main() {
         factory = Netty,
         port = 8080,
         host = "localhost",
-        module = Application::rootModule
+        module = Application::rootModule,
     ).start(wait = true)
 }

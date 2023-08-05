@@ -17,7 +17,7 @@ class InMemoryScooters(scooters: MutableList<Scooter>? = null) : ScooterReposito
     private val scooters: MutableList<Scooter> = scooters ?: mutableListOf(
         buildScooter(SCOOTER_ID_1, LOCKED, USER_ID_1),
         buildScooter(SCOOTER_ID_2, RUNNING, USER_ID_2),
-        buildScooter(SCOOTER_ID_3, LOCKED, USER_ID_3)
+        buildScooter(SCOOTER_ID_3, LOCKED, USER_ID_3),
     )
 
     override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
@@ -36,7 +36,6 @@ class InMemoryScooters(scooters: MutableList<Scooter>? = null) : ScooterReposito
         Scooter(
             ScooterId(id),
             status,
-            UserId(userId)
+            UserId(userId),
         )
-
 }

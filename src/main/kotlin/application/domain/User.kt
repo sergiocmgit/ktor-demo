@@ -13,7 +13,7 @@ value class Name(val value: String)
 
 enum class UserStatus {
     ACTIVE,
-    DEACTIVATED
+    DEACTIVATED,
 }
 
 data class User(

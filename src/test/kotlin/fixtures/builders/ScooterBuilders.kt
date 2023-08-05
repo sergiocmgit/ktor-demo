@@ -10,15 +10,15 @@ import com.example.application.port.input.ScooterResponse
 const val DEFAULT_SCOOTER_ID: Int = 1
 
 fun buildScooter(
-    status: ScooterStatus = LOCKED
+    status: ScooterStatus = LOCKED,
 ) = Scooter(
     ScooterId(DEFAULT_SCOOTER_ID),
     status,
-    UserId(DEFAULT_USER_ID)
+    UserId(DEFAULT_USER_ID),
 )
 
 fun buildScooterResponse() = ScooterResponse(
     DEFAULT_SCOOTER_ID,
     LOCKED,
-    DEFAULT_USER_ID
+    DEFAULT_USER_ID,
 )

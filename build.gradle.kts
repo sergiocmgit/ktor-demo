@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.0"
     id("io.ktor.plugin") version "2.3.2"
     kotlin("plugin.serialization") version "1.8.21"
+    id("org.jmailen.kotlinter") version "3.15.0"
 }
 
 group = "com.example"

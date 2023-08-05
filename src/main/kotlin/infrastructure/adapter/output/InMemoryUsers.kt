@@ -16,7 +16,7 @@ class InMemoryUsers(users: List<User>? = null) : UserRepository {
     private val users: List<User> = users ?: listOf(
         User(UserId(USER_ID_1), Name("Elisa"), ACTIVE),
         User(UserId(USER_ID_2), Name("Carlos"), ACTIVE),
-        User(UserId(USER_ID_3), Name("Roberta"), DEACTIVATED)
+        User(UserId(USER_ID_3), Name("Roberta"), DEACTIVATED),
     )
 
     override fun findAll(): List<User> = users

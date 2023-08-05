@@ -17,7 +17,7 @@ fun Application.scooterModule() {
         scooters(
             GetScootersUseCase(inMemoryScooters),
             RunScooterUseCase(inMemoryUsers, inMemoryScooters),
-            LockScooterUseCase(inMemoryUsers, inMemoryScooters)
+            LockScooterUseCase(inMemoryUsers, inMemoryScooters),
         )
     }
 }
