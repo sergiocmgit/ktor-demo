@@ -4,6 +4,7 @@ import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
 import com.example.application.domain.UserStatus.ACTIVE
+import com.example.application.domain.UserStatus.DEACTIVATED
 
 @JvmInline
 value class UserId(val value: String)
@@ -22,7 +23,8 @@ data class User(
     val status: UserStatus,
 ) {
 
-    fun checkIsActive(): Either<UserInvalidStatus, User> =
-        if (status == ACTIVE) right()
-        else UserInvalidStatus.left()
+    fun checkIsActive(): Either<UserInvalidStatus, User> = when (status) {
+        ACTIVE -> right()
+        DEACTIVATED -> UserInvalidStatus.left()
+    }
 }
