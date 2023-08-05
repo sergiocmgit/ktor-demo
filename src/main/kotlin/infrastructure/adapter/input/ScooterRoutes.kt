@@ -9,6 +9,7 @@ import com.example.application.port.input.LockScooter
 import com.example.application.port.input.LockScooterRequest
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterRequest
+import com.example.infrastructure.adapter.input.ScooterResources.Id
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.NotFound
 import io.ktor.http.HttpStatusCode.Companion.OK
