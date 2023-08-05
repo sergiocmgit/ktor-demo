@@ -12,9 +12,9 @@ import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
 import com.example.application.port.output.ScooterRepository
 
-class InMemoryScooters : ScooterRepository {
+class InMemoryScooters(scooters: MutableList<Scooter>? = null) : ScooterRepository {
 
-    private val scooters: MutableList<Scooter> = mutableListOf(
+    private val scooters: MutableList<Scooter> = scooters ?: mutableListOf(
         buildScooter(SCOOTER_ID_1, LOCKED, USER_ID_1),
         buildScooter(SCOOTER_ID_2, RUNNING, USER_ID_2),
         buildScooter(SCOOTER_ID_3, LOCKED, USER_ID_3)
