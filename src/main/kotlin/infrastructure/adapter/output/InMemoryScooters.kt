@@ -6,36 +6,39 @@ import arrow.core.right
 import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterNotFound
-import com.example.application.domain.ScooterStatus
-import com.example.application.domain.ScooterStatus.LOCKED
-import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
 import com.example.application.port.output.ScooterRepository
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
-class InMemoryScooters(scooters: MutableList<Scooter>? = null) : ScooterRepository {
+class InMemoryScooters : ScooterRepository {
 
-    private val scooters: MutableList<Scooter> = scooters ?: mutableListOf(
-        buildScooter(SCOOTER_ID_1, LOCKED, USER_ID_1),
-        buildScooter(SCOOTER_ID_2, RUNNING, USER_ID_2),
-        buildScooter(SCOOTER_ID_3, LOCKED, USER_ID_3),
-    )
-
-    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
-        scooters.find { it.id == scooterId }?.right()
+    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> = transaction {
+        ScooterTable.select { ScooterTable.id eq scooterId.value }
+            .map { it.toDomain() }
+            .singleOrNull()?.right()
             ?: ScooterNotFound.left()
-
-    override fun findAll(): List<Scooter> = scooters
-
-    override fun update(scooter: Scooter) {
-        scooters.indexOfFirst { it.id == scooter.id }
-            .also { scooters.removeAt(it) }
-            .also { scooters.add(it, scooter) }
     }
 
-    private fun buildScooter(id: Int, status: ScooterStatus, userId: String) =
-        Scooter(
-            ScooterId(id),
-            status,
-            UserId(userId),
-        )
+    override fun findAll(): List<Scooter> = transaction {
+        ScooterTable.selectAll().map { it.toDomain() }
+    }
+
+    override fun update(scooter: Scooter) {
+        transaction {
+            ScooterTable.update({ ScooterTable.id eq scooter.id.value }) {
+                it[status] = scooter.status
+                it[lastRider] = scooter.lastRider.value
+            }
+        }
+    }
+
+    private fun ResultRow.toDomain() = Scooter(
+        id = ScooterId(this[ScooterTable.id]),
+        status = this[ScooterTable.status],
+        lastRider = UserId(this[ScooterTable.lastRider]),
+    )
 }
