@@ -6,29 +6,21 @@ import com.example.application.domain.UserId
 import com.example.fixtures.builders.buildScooter
 import com.example.fixtures.isLeftWith
 import com.example.fixtures.isRightWith
-import com.example.infrastructure.adapter.output.DatabaseFactory
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.ScooterTable
 import fixtures.DatabaseUtils.Companion.save
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class InMemoryScootersTest {
+class InMemoryScootersTest : RepositoryTest() {
 
     private val storedScooter = buildScooter()
 
     private val inMemoryScooters = InMemoryScooters()
-
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun beforeAll() { DatabaseFactory.init() }
-    }
 
     @BeforeEach
     fun beforeEach() { transaction { ScooterTable.deleteAll() } }

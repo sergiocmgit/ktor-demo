@@ -6,18 +6,27 @@ import com.example.fixtures.builders.buildUser
 import com.example.fixtures.isLeftWith
 import com.example.fixtures.isRightWith
 import com.example.infrastructure.adapter.output.InMemoryUsers
+import com.example.infrastructure.adapter.output.UserTable
+import fixtures.DatabaseUtils.Companion.save
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.exposed.sql.deleteAll
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class InMemoryUsersTest {
+class InMemoryUsersTest : RepositoryTest() {
 
     private val storedUser = buildUser()
 
-    private val inMemoryUsers = InMemoryUsers(listOf(storedUser))
+    private val inMemoryUsers = InMemoryUsers()
+
+    @BeforeEach
+    fun beforeEach() { transaction { UserTable.deleteAll() } }
 
     @Test
     fun `should find all users`() {
+        save(storedUser)
         val expected = listOf(storedUser)
 
         val result = inMemoryUsers.findAll()
@@ -30,6 +39,7 @@ class InMemoryUsersTest {
 
         @Test
         fun `should find a user`() {
+            save(storedUser)
             val result = inMemoryUsers.find(storedUser.id)
 
             assertThat(result).isRightWith(storedUser)
