@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -5,10 +7,11 @@ val exposed_version: String by project
 val h2_version: String by project
 
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.2"
     kotlin("plugin.serialization") version "1.8.21"
     id("org.jmailen.kotlinter") version "3.15.0"
+    java
 }
 
 group = "com.example"
@@ -53,4 +56,14 @@ tasks {
         useJUnitPlatform()
         maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
     }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "18"
+    }
+}
+
+java {
+    targetCompatibility = JavaVersion.VERSION_18
 }
