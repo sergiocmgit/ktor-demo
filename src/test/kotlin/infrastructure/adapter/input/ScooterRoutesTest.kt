@@ -29,7 +29,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ScooterRoutesTest {
+class ScooterRoutesTest : RoutingTest() {
 
     private val getScooters = mockk<GetScooters>()
     private val runScooter = mockk<RunScooter>()
@@ -82,7 +82,7 @@ class ScooterRoutesTest {
         verify { lockScooter(request) }
     }
 
-    private fun ApplicationTestBuilder.appSetup() = application {
+    override fun ApplicationTestBuilder.appSetup() = application {
         testRoutesModule()
         install(Routing) {
             scooters(getScooters, runScooter, lockScooter)

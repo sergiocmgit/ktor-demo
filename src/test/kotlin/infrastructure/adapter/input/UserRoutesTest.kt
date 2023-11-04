@@ -3,6 +3,7 @@ package infrastructure.adapter.input
 import com.example.application.port.input.GetUsers
 import com.example.application.port.input.GetUsersResponse
 import com.example.fixtures.builders.buildUserResponse
+import com.example.infrastructure.adapter.input.users
 import com.example.infrastructure.config.testRoutesModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.request.get
@@ -19,7 +20,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class UserRoutesTest {
+class UserRoutesTest : RoutingTest() {
 
     private val getUsers = mockk<GetUsers>()
 
@@ -41,7 +42,7 @@ class UserRoutesTest {
         assertThat(responseObject).isEqualTo(expected)
     }
 
-    private fun ApplicationTestBuilder.appSetup() = application {
+    override fun ApplicationTestBuilder.appSetup() = application {
         testRoutesModule()
         install(Routing) {
             users(getUsers)
