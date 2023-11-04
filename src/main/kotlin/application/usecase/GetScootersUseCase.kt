@@ -8,7 +8,6 @@ import com.example.application.port.output.ScooterRepository
 class GetScootersUseCase(
     private val scooterRepository: ScooterRepository,
 ) : GetScooters {
-
     override fun invoke(): GetScootersResponse =
         scooterRepository.findAll()
             .map { ScooterResponse(it.id.value, it.status, it.lastRider.value) }

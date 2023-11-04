@@ -15,17 +15,18 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
 class InMemoryScooters : ScooterRepository {
+    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
+        transaction {
+            ScooterTable.select { ScooterTable.id eq scooterId.value }
+                .map { it.toDomain() }
+                .singleOrNull()?.right()
+                ?: ScooterNotFound.left()
+        }
 
-    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> = transaction {
-        ScooterTable.select { ScooterTable.id eq scooterId.value }
-            .map { it.toDomain() }
-            .singleOrNull()?.right()
-            ?: ScooterNotFound.left()
-    }
-
-    override fun findAll(): List<Scooter> = transaction {
-        ScooterTable.selectAll().map { it.toDomain() }
-    }
+    override fun findAll(): List<Scooter> =
+        transaction {
+            ScooterTable.selectAll().map { it.toDomain() }
+        }
 
     override fun update(scooter: Scooter) {
         transaction {
@@ -36,9 +37,10 @@ class InMemoryScooters : ScooterRepository {
         }
     }
 
-    private fun ResultRow.toDomain() = Scooter(
-        id = ScooterId(this[ScooterTable.id]),
-        status = this[ScooterTable.status],
-        lastRider = UserId(this[ScooterTable.lastRider]),
-    )
+    private fun ResultRow.toDomain() =
+        Scooter(
+            id = ScooterId(this[ScooterTable.id]),
+            status = this[ScooterTable.status],
+            lastRider = UserId(this[ScooterTable.lastRider]),
+        )
 }

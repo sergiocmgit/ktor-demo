@@ -4,7 +4,6 @@ import arrow.core.Either
 import com.example.application.domain.LockScooterError
 
 interface LockScooter {
-
     operator fun invoke(request: LockScooterRequest): Either<LockScooterError, ScooterLocked>
 }
 

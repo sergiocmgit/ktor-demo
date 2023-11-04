@@ -14,7 +14,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeAll
 
 abstract class ComponentTest {
-
     protected val objectMapper = jacksonObjectMapper()
 
     companion object {
@@ -29,12 +28,13 @@ abstract class ComponentTest {
         }
 
         @JvmStatic
-        protected fun ApplicationTestBuilder.appSetup() = application {
-            testRoutesModule()
+        protected fun ApplicationTestBuilder.appSetup() =
+            application {
+                testRoutesModule()
 
-            val inMemoryScooters = InMemoryScooters()
-            val inMemoryUsers = InMemoryUsers()
-            testRoutingModule(inMemoryScooters, inMemoryUsers)
-        }
+                val inMemoryScooters = InMemoryScooters()
+                val inMemoryUsers = InMemoryUsers()
+                testRoutingModule(inMemoryScooters, inMemoryUsers)
+            }
     }
 }

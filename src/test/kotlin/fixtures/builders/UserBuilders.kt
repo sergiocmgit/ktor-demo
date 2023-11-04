@@ -19,10 +19,9 @@ fun buildUser(
     status,
 )
 
-fun buildUserResponse(
-    userId: String = DEFAULT_USER_ID
-) = UserResponse(
-    userId,
-    DEFAULT_USER_NAME,
-    ACTIVE,
-)
+fun buildUserResponse(userId: String = DEFAULT_USER_ID) =
+    UserResponse(
+        userId,
+        DEFAULT_USER_NAME,
+        ACTIVE,
+    )

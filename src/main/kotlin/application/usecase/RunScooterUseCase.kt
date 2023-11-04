@@ -15,7 +15,6 @@ class RunScooterUseCase(
     private val userRepository: UserRepository,
     private val scooterRepository: ScooterRepository,
 ) : RunScooter {
-
     override fun invoke(request: RunScooterRequest): Either<RunScooterError, ScooterRunning> =
         userRepository.find(UserId(request.userId))
             .flatMap { it.checkIsActive() }

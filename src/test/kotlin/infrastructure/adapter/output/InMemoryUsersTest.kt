@@ -16,13 +16,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class InMemoryUsersTest : InMemoryTest {
-
     private val inMemoryUsers = InMemoryUsers()
 
     private val storedUser = buildUser()
 
     @BeforeEach
-    fun beforeEach() { transaction { UserTable.deleteAll() } }
+    fun beforeEach() {
+        transaction { UserTable.deleteAll() }
+    }
 
     @Test
     fun `should find all users`() {
@@ -37,7 +38,6 @@ class InMemoryUsersTest : InMemoryTest {
 
     @Nested
     inner class FindById {
-
         @Test
         fun `should find a user`() {
             // Given

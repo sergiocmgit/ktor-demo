@@ -1,6 +1,7 @@
 package com.example.application.domain
 
 sealed interface RunScooterError
+
 sealed interface LockScooterError
 
 data object UserNotFound : RunScooterError, LockScooterError

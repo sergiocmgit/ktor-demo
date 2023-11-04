@@ -22,9 +22,9 @@ data class User(
     val name: Name,
     val status: UserStatus,
 ) {
-
-    fun checkIsActive(): Either<UserInvalidStatus, User> = when (status) {
-        ACTIVE -> right()
-        DEACTIVATED -> UserInvalidStatus.left()
-    }
+    fun checkIsActive(): Either<UserInvalidStatus, User> =
+        when (status) {
+            ACTIVE -> right()
+            DEACTIVATED -> UserInvalidStatus.left()
+        }
 }

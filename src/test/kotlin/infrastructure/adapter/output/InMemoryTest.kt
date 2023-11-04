@@ -4,7 +4,6 @@ import com.example.infrastructure.adapter.output.DatabaseFactory
 import org.junit.jupiter.api.BeforeAll
 
 interface InMemoryTest {
-
     companion object {
         @JvmStatic
         @BeforeAll

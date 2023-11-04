@@ -17,13 +17,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class InMemoryScootersTest : InMemoryTest {
-
     private val inMemoryScooters = InMemoryScooters()
 
     private val storedScooter = buildScooter()
 
     @BeforeEach
-    fun beforeEach() { transaction { ScooterTable.deleteAll() } }
+    fun beforeEach() {
+        transaction { ScooterTable.deleteAll() }
+    }
 
     @Test
     fun `should find all scooters`() {
@@ -38,7 +39,6 @@ class InMemoryScootersTest : InMemoryTest {
 
     @Nested
     inner class FindById {
-
         @Test
         fun `should find a scooter`() {
             // Given
@@ -62,10 +62,11 @@ class InMemoryScootersTest : InMemoryTest {
     fun `should update a scooter`() {
         // Given
         save(storedScooter)
-        val updatedScooter = storedScooter.copy(
-            status = RUNNING,
-            lastRider = UserId("some-id"),
-        )
+        val updatedScooter =
+            storedScooter.copy(
+                status = RUNNING,
+                lastRider = UserId("some-id"),
+            )
         // When
         inMemoryScooters.update(updatedScooter)
         val result = inMemoryScooters.find(storedScooter.id)

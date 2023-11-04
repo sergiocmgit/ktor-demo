@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GetUsersUseCaseTest {
-
     private val userRepository = mockk<UserRepository>()
 
     private val useCase = GetUsersUseCase(userRepository)

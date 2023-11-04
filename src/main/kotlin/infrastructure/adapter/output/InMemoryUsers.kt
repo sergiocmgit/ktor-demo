@@ -14,21 +14,23 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class InMemoryUsers : UserRepository {
+    override fun findAll(): List<User> =
+        transaction {
+            UserTable.selectAll().map { it.toDomain() }
+        }
 
-    override fun findAll(): List<User> = transaction {
-        UserTable.selectAll().map { it.toDomain() }
-    }
+    override fun find(userId: UserId): Either<UserNotFound, User> =
+        transaction {
+            UserTable.select { UserTable.id eq userId.value }
+                .map { it.toDomain() }
+                .singleOrNull()?.right()
+                ?: UserNotFound.left()
+        }
 
-    override fun find(userId: UserId): Either<UserNotFound, User> = transaction {
-        UserTable.select { UserTable.id eq userId.value }
-            .map { it.toDomain() }
-            .singleOrNull()?.right()
-            ?: UserNotFound.left()
-    }
-
-    private fun ResultRow.toDomain() = User(
-        id = UserId(this[UserTable.id]),
-        name = Name(this[UserTable.name]),
-        status = this[UserTable.status],
-    )
+    private fun ResultRow.toDomain() =
+        User(
+            id = UserId(this[UserTable.id]),
+            name = Name(this[UserTable.name]),
+            status = this[UserTable.status],
+        )
 }

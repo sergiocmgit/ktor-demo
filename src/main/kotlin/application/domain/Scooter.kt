@@ -19,14 +19,17 @@ data class Scooter(
     val status: ScooterStatus,
     val lastRider: UserId,
 ) {
-
     fun running(userId: UserId): Either<ScooterInvalidStatus, Scooter> =
         if (status != LOCKED) {
             ScooterInvalidStatus.left()
-        } else copy(status = RUNNING, lastRider = userId).right()
+        } else {
+            copy(status = RUNNING, lastRider = userId).right()
+        }
 
     fun locked(userId: UserId): Either<ScooterInvalidStatus, Scooter> =
         if (status != RUNNING || lastRider != userId) {
             ScooterInvalidStatus.left()
-        } else copy(status = LOCKED).right()
+        } else {
+            copy(status = LOCKED).right()
+        }
 }

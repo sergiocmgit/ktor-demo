@@ -4,10 +4,8 @@ import io.ktor.resources.Resource
 
 @Resource("/scooters")
 class Scooter {
-
     @Resource("/{scooterId}")
     class Id(val parent: Scooter, val scooterId: Int) {
-
         @Resource("/run/{userId}")
         class Run(val parent: Id, val userId: String)
 

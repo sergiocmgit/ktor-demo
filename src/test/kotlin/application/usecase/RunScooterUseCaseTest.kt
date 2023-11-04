@@ -32,7 +32,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class RunScooterUseCaseTest {
-
     private val userRepository = mockk<UserRepository>()
     private val scooterRepository = mockk<ScooterRepository>()
 

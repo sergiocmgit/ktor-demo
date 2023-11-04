@@ -13,10 +13,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class ScooterTest {
-
     @Nested
     inner class RunScooter {
-
         private val scooter = Scooter(ScooterId(1), LOCKED, UserId("A"))
         private val lastRider = UserId("B")
 
@@ -43,7 +41,6 @@ class ScooterTest {
 
     @Nested
     inner class LockScooter {
-
         private val userId = UserId("A")
         private val scooter = Scooter(ScooterId(1), RUNNING, userId)
 

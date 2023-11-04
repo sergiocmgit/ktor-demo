@@ -12,7 +12,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class UserTest {
-
     @Test
     fun `should check User is active`() {
         // Given

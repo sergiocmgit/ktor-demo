@@ -8,9 +8,7 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class DatabaseUtils {
-
     companion object {
-
         fun save(scooter: Scooter) {
             transaction {
                 ScooterTable.insert {
