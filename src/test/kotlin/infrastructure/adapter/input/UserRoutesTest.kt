@@ -1,4 +1,4 @@
-package com.example.infrastructure.adapter.input
+package infrastructure.adapter.input
 
 import com.example.application.port.input.GetUsers
 import com.example.application.port.input.GetUsersResponse
