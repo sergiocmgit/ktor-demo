@@ -22,19 +22,21 @@ class ScooterTest {
 
         @Test
         fun `should run Scooter`() {
+            // Given
             val expected = scooter.copy(status = RUNNING, lastRider = lastRider)
-
+            // When
             val result = scooter.running(lastRider)
-
+            // Then
             assertThat(result).isRightWith(expected)
         }
 
         @Test
         fun `should fail when Scooter is not locked`() {
+            // Given
             val scooter = scooter.copy(status = RUNNING)
-
+            // When
             val result = scooter.running(lastRider)
-
+            // Then
             assertThat(result).isLeftWith(ScooterInvalidStatus)
         }
     }
@@ -47,28 +49,31 @@ class ScooterTest {
 
         @Test
         fun `should lock Scooter`() {
+            // Given
             val expected = scooter.copy(status = LOCKED)
-
+            // When
             val result = scooter.locked(userId)
-
+            // Then
             assertThat(result).isRightWith(expected)
         }
 
         @Test
         fun `should fail when Scooter is not running`() {
+            // Given
             val scooter = scooter.copy(status = LOCKED)
-
+            // When
             val result = scooter.locked(userId)
-
+            // Then
             assertThat(result).isLeftWith(ScooterInvalidStatus)
         }
 
         @Test
         fun `should fail when UserId was not the Scooter rider`() {
+            // Given
             val userId = UserId("B")
-
+            // When
             val result = scooter.locked(userId)
-
+            // Then
             assertThat(result).isLeftWith(ScooterInvalidStatus)
         }
     }

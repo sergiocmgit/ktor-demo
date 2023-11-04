@@ -47,15 +47,16 @@ class LockScooterUseCaseTest {
 
     @Test
     fun `should lock scooter`() {
+        // Given
         val runningScooter = buildScooter(status = RUNNING)
         val lockedScooter = runningScooter.copy(status = LOCKED)
         val expected = ScooterLocked(scooterId)
         every { userRepository.find(UserId(userId)) } returns buildUser().right()
         every { scooterRepository.find(runningScooter.id) } returns runningScooter.right()
         justRun { scooterRepository.update(lockedScooter) }
-
+        // When
         val result = useCase(LockScooterRequest(scooterId, userId))
-
+        // Then
         assertThat(result).isRightWith(expected)
         verify(ORDERED) {
             userRepository.find(UserId(userId))
@@ -66,41 +67,45 @@ class LockScooterUseCaseTest {
 
     @Test
     fun `should fail when cannot find user`() {
+        // Given
         every { userRepository.find(UserId(userId)) } returns UserNotFound.left()
-
+        // When
         val result = useCase(LockScooterRequest(scooterId, userId))
-
+        // Then
         assertThat(result).isLeftWith(UserNotFound)
     }
 
     @Test
     fun `should fail when user is in an invalid status`() {
+        // Given
         val user = buildUser(status = UserStatus.DEACTIVATED)
         every { userRepository.find(UserId(userId)) } returns user.right()
-
+        // When
         val result = useCase(LockScooterRequest(scooterId, userId))
-
+        // Then
         assertThat(result).isLeftWith(UserInvalidStatus)
     }
 
     @Test
     fun `should fail when cannot find scooter`() {
+        // Given
         every { userRepository.find(UserId(userId)) } returns buildUser().right()
         every { scooterRepository.find(ScooterId(scooterId)) } returns ScooterNotFound.left()
-
+        // When
         val result = useCase(LockScooterRequest(scooterId, userId))
-
+        // Then
         assertThat(result).isLeftWith(ScooterNotFound)
     }
 
     @Test
     fun `should fail when scooter is in an invalid status`() {
+        // Given
         val lockedScooter = buildScooter(status = LOCKED)
         every { userRepository.find(UserId(userId)) } returns buildUser().right()
         every { scooterRepository.find(lockedScooter.id) } returns lockedScooter.right()
-
+        // When
         val result = useCase(LockScooterRequest(scooterId, userId))
-
+        // Then
         assertThat(result).isLeftWith(ScooterInvalidStatus)
     }
 }

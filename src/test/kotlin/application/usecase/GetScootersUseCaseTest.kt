@@ -24,13 +24,14 @@ class GetScootersUseCaseTest {
 
     @Test
     fun `should get all scooters`() {
+        // Given
         val scooters = listOf(buildScooter(), buildScooter())
         val scootersResponse = listOf(buildScooterResponse(), buildScooterResponse())
         val expected = GetScootersResponse(scooters = scootersResponse)
         every { scooterRepository.findAll() } returns scooters
-
+        // When
         val result = useCase()
-
+        // Then
         assertThat(result).isEqualTo(expected)
         verify { scooterRepository.findAll() }
     }

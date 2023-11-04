@@ -43,12 +43,13 @@ class ScooterRoutesTest : RoutingTest() {
     @Test
     fun `should get all the scooters`() = testApplication {
         appSetup()
+        // Given
         val expected = GetScootersResponse(listOf(buildScooterResponse()))
         every { getScooters() } returns expected
-
+        // When
         val response = client.get("/scooters")
         val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
-
+        // Then
         assertThat(response.status).isEqualTo(OK)
         assertThat(responseObject).isEqualTo(expected)
         verify { getScooters() }
@@ -57,13 +58,14 @@ class ScooterRoutesTest : RoutingTest() {
     @Test
     fun `should run a scooter`() = testApplication {
         appSetup()
+        // Given
         val scooterId = 1
         val userId = "A"
         val request = RunScooterRequest(scooterId, userId)
         every { runScooter(request) } returns ScooterRunning(scooterId).right()
-
+        // When
         val response = client.post("/scooters/$scooterId/run/$userId")
-
+        // Then
         assertThat(response.status).isEqualTo(OK)
         verify { runScooter(request) }
     }
@@ -71,13 +73,14 @@ class ScooterRoutesTest : RoutingTest() {
     @Test
     fun `should lock a scooter`() = testApplication {
         appSetup()
+        // Given
         val scooterId = 1
         val userId = "A"
         val request = LockScooterRequest(scooterId, userId)
         every { lockScooter(request) } returns ScooterLocked(scooterId).right()
-
+        // When
         val response = client.post("/scooters/$scooterId/lock/$userId")
-
+        // Then
         assertThat(response.status).isEqualTo(OK)
         verify { lockScooter(request) }
     }

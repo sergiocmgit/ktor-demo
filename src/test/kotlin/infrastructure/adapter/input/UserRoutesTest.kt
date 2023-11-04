@@ -32,12 +32,13 @@ class UserRoutesTest : RoutingTest() {
     @Test
     fun `should get all the users`() = testApplication {
         appSetup()
+        // Given
         val expected = GetUsersResponse(listOf(buildUserResponse()))
         every { getUsers() } returns expected
-
+        // When
         val response = client.get("/users")
         val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
-
+        // Then
         assertThat(response.status).isEqualTo(OK)
         assertThat(responseObject).isEqualTo(expected)
     }

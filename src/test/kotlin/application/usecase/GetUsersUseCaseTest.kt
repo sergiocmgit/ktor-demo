@@ -24,13 +24,14 @@ class GetUsersUseCaseTest {
 
     @Test
     fun `should get all users`() {
+        // Given
         val users = listOf(buildUser(), buildUser())
         val usersResponse = listOf(buildUserResponse(), buildUserResponse())
         val expected = GetUsersResponse(users = usersResponse)
         every { userRepository.findAll() } returns users
-
+        // When
         val result = useCase()
-
+        // Then
         assertThat(result).isEqualTo(expected)
         verify { userRepository.findAll() }
     }

@@ -27,11 +27,12 @@ class InMemoryScootersTest : InMemoryTest {
 
     @Test
     fun `should find all scooters`() {
+        // Given
         save(storedScooter)
         val expected = listOf(storedScooter)
-
+        // When
         val result = inMemoryScooters.findAll()
-
+        // Then
         assertThat(result).isEqualTo(expected)
     }
 
@@ -40,31 +41,35 @@ class InMemoryScootersTest : InMemoryTest {
 
         @Test
         fun `should find a scooter`() {
+            // Given
             save(storedScooter)
+            // When
             val result = inMemoryScooters.find(storedScooter.id)
-
+            // Then
             assertThat(result).isRightWith(storedScooter)
         }
 
         @Test
         fun `should fail when cannot find a scooter`() {
+            // When
             val result = inMemoryScooters.find(storedScooter.id)
-
+            // Then
             assertThat(result).isLeftWith(ScooterNotFound)
         }
     }
 
     @Test
     fun `should update a scooter`() {
+        // Given
         save(storedScooter)
         val updatedScooter = storedScooter.copy(
             status = RUNNING,
             lastRider = UserId("some-id"),
         )
-
+        // When
         inMemoryScooters.update(updatedScooter)
         val result = inMemoryScooters.find(storedScooter.id)
-
+        // Then
         assertThat(result).isRightWith(updatedScooter)
     }
 }

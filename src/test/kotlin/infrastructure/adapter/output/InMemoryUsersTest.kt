@@ -26,11 +26,12 @@ class InMemoryUsersTest : InMemoryTest {
 
     @Test
     fun `should find all users`() {
+        // Given
         save(storedUser)
         val expected = listOf(storedUser)
-
+        // When
         val result = inMemoryUsers.findAll()
-
+        // Then
         assertThat(result).isEqualTo(expected)
     }
 
@@ -39,16 +40,19 @@ class InMemoryUsersTest : InMemoryTest {
 
         @Test
         fun `should find a user`() {
+            // Given
             save(storedUser)
+            // When
             val result = inMemoryUsers.find(storedUser.id)
-
+            // Then
             assertThat(result).isRightWith(storedUser)
         }
 
         @Test
         fun `should fail when cannot find user`() {
+            // When
             val result = inMemoryUsers.find(UserId("some-id"))
-
+            // Then
             assertThat(result).isLeftWith(UserNotFound)
         }
     }
