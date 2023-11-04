@@ -3,21 +3,33 @@ package component
 import com.example.infrastructure.adapter.output.DatabaseFactory
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
+import com.example.infrastructure.adapter.output.ScooterTable
+import com.example.infrastructure.adapter.output.UserTable
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import config.testRoutingModule
 import infrastructure.config.testRoutesModule
 import io.ktor.server.testing.ApplicationTestBuilder
+import org.jetbrains.exposed.sql.deleteAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeAll
 
-interface ComponentTest {
+abstract class ComponentTest {
+
+    protected val objectMapper = jacksonObjectMapper()
 
     companion object {
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
             DatabaseFactory.init(ComponentTest::class.java.simpleName)
+            transaction {
+                ScooterTable.deleteAll()
+                UserTable.deleteAll()
+            }
         }
 
-        fun ApplicationTestBuilder.appSetup() = application {
+        @JvmStatic
+        protected fun ApplicationTestBuilder.appSetup() = application {
             testRoutesModule()
 
             val inMemoryScooters = InMemoryScooters()
