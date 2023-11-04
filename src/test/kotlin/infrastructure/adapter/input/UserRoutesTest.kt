@@ -4,7 +4,7 @@ import com.example.application.port.input.GetUsers
 import com.example.application.port.input.GetUsersResponse
 import com.example.fixtures.builders.buildUserResponse
 import com.example.infrastructure.adapter.input.users
-import com.example.infrastructure.config.testRoutesModule
+import infrastructure.config.testRoutesModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText

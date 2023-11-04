@@ -11,7 +11,7 @@ import com.example.application.port.input.ScooterLocked
 import com.example.application.port.input.ScooterRunning
 import com.example.fixtures.builders.buildScooterResponse
 import com.example.infrastructure.adapter.input.scooters
-import com.example.infrastructure.config.testRoutesModule
+import infrastructure.config.testRoutesModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.request.get
 import io.ktor.client.request.post
