@@ -11,15 +11,18 @@ const val DEFAULT_USER_ID: String = "A"
 const val DEFAULT_USER_NAME: String = "Eli"
 
 fun buildUser(
+    userId: String = DEFAULT_USER_ID,
     status: UserStatus = ACTIVE,
 ) = User(
-    UserId(DEFAULT_USER_ID),
+    UserId(userId),
     Name(DEFAULT_USER_NAME),
     status,
 )
 
-fun buildUserResponse() = UserResponse(
-    DEFAULT_USER_ID,
+fun buildUserResponse(
+    userId: String = DEFAULT_USER_ID
+) = UserResponse(
+    userId,
     DEFAULT_USER_NAME,
     ACTIVE,
 )
