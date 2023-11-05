@@ -6,12 +6,16 @@ import com.example.application.domain.UserId
 import com.example.application.domain.UserStatus
 import com.example.application.domain.UserStatus.ACTIVE
 import com.example.application.port.input.UserResponse
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 const val DEFAULT_USER_ID: String = "A"
 const val DEFAULT_USER_NAME: String = "Eli"
 
+fun randomUserId(): String = ('A' + Random.nextInt(0..25)).toString()
+
 fun buildUser(
-    userId: String = DEFAULT_USER_ID,
+    userId: String = randomUserId(),
     status: UserStatus = ACTIVE,
 ) = User(
     UserId(userId),
@@ -19,7 +23,7 @@ fun buildUser(
     status,
 )
 
-fun buildUserResponse(userId: String = DEFAULT_USER_ID) =
+fun buildUserResponse(userId: String = randomUserId()) =
     UserResponse(
         userId,
         DEFAULT_USER_NAME,
