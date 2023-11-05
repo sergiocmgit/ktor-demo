@@ -5,6 +5,7 @@ import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.ScooterResponse
 import com.example.application.port.output.ScooterRepository
 
+// TODO: confirm if it is truly needed to hide the UseCase classes behind input interfaces
 class GetScootersUseCase(
     private val scooterRepository: ScooterRepository,
 ) : GetScooters {
