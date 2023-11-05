@@ -4,6 +4,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
+// TODO: change to postgres DB to avoid H2 file locking
 object DatabaseFactory {
     fun init(databaseName: String = "db") {
         val driverClassName = "org.h2.Driver"
