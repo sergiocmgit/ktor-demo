@@ -2,9 +2,9 @@ package infrastructure.adapter.output
 
 import com.example.application.domain.UserId
 import com.example.application.domain.UserNotFound
-import com.example.fixtures.builders.buildUser
-import com.example.fixtures.isLeftWith
-import com.example.fixtures.isRightWith
+import fixtures.builders.buildUser
+import fixtures.isLeftWith
+import fixtures.isRightWith
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.UserTable
 import fixtures.DatabaseUtils.Companion.save

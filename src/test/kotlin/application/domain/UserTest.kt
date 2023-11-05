@@ -6,8 +6,8 @@ import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.UserStatus.ACTIVE
 import com.example.application.domain.UserStatus.DEACTIVATED
-import com.example.fixtures.isLeftWith
-import com.example.fixtures.isRightWith
+import fixtures.isLeftWith
+import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

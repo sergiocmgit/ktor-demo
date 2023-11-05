@@ -6,8 +6,8 @@ import com.example.application.domain.ScooterInvalidStatus
 import com.example.application.domain.ScooterStatus.LOCKED
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
-import com.example.fixtures.isLeftWith
-import com.example.fixtures.isRightWith
+import fixtures.isLeftWith
+import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

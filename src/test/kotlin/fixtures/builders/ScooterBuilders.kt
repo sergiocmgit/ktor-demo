@@ -1,4 +1,4 @@
-package com.example.fixtures.builders
+package fixtures.builders
 
 import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterId

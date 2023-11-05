@@ -1,4 +1,4 @@
-package com.example.fixtures
+package fixtures
 
 import arrow.core.Either
 import arrow.core.left

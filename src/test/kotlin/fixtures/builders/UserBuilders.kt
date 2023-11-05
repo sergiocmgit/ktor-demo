@@ -1,4 +1,4 @@
-package com.example.fixtures.builders
+package fixtures.builders
 
 import com.example.application.domain.Name
 import com.example.application.domain.User

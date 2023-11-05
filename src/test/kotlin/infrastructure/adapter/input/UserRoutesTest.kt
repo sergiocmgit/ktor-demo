@@ -2,7 +2,7 @@ package infrastructure.adapter.input
 
 import com.example.application.port.input.GetUsers
 import com.example.application.port.input.GetUsersResponse
-import com.example.fixtures.builders.buildUserResponse
+import fixtures.builders.buildUserResponse
 import com.example.infrastructure.adapter.input.users
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import infrastructure.config.testRoutesModule

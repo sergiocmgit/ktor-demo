@@ -1,8 +1,8 @@
 package component
 
 import com.example.application.port.input.GetUsersResponse
-import com.example.fixtures.builders.buildUser
-import com.example.fixtures.builders.buildUserResponse
+import fixtures.builders.buildUser
+import fixtures.builders.buildUserResponse
 import fixtures.DatabaseUtils.Companion.save
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText

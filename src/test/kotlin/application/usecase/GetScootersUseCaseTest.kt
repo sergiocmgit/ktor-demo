@@ -3,8 +3,8 @@ package application.usecase
 import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.output.ScooterRepository
 import com.example.application.usecase.GetScootersUseCase
-import com.example.fixtures.builders.buildScooter
-import com.example.fixtures.builders.buildScooterResponse
+import fixtures.builders.buildScooter
+import fixtures.builders.buildScooterResponse
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk

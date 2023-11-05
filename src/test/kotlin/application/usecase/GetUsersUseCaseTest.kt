@@ -3,8 +3,8 @@ package application.usecase
 import com.example.application.port.input.GetUsersResponse
 import com.example.application.port.output.UserRepository
 import com.example.application.usecase.GetUsersUseCase
-import com.example.fixtures.builders.buildUser
-import com.example.fixtures.builders.buildUserResponse
+import fixtures.builders.buildUser
+import fixtures.builders.buildUserResponse
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
