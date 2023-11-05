@@ -9,16 +9,18 @@ import com.example.application.port.input.ScooterResponse
 
 const val DEFAULT_SCOOTER_ID: Int = 1
 
-fun buildScooter(status: ScooterStatus = LOCKED) =
-    Scooter(
-        ScooterId(DEFAULT_SCOOTER_ID),
-        status,
-        UserId(DEFAULT_USER_ID),
-    )
+fun buildScooter(
+    scooterId: Int = DEFAULT_SCOOTER_ID,
+    status: ScooterStatus = LOCKED,
+) = Scooter(
+    ScooterId(scooterId),
+    status,
+    UserId(DEFAULT_USER_ID),
+)
 
-fun buildScooterResponse() =
+fun buildScooterResponse(scooterId: Int = DEFAULT_SCOOTER_ID) =
     ScooterResponse(
-        DEFAULT_SCOOTER_ID,
+        scooterId,
         LOCKED,
         DEFAULT_USER_ID,
     )
