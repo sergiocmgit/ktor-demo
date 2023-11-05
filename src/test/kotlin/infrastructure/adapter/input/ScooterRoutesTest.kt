@@ -29,6 +29,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+// TODO: add non-happy case tests
 class ScooterRoutesTest : RoutingTest() {
     private val getScooters = mockk<GetScooters>()
     private val runScooter = mockk<RunScooter>()
