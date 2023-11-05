@@ -3,12 +3,12 @@ package infrastructure.adapter.output
 import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
-import fixtures.isLeftWith
-import fixtures.isRightWith
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.ScooterTable
 import fixtures.DatabaseUtils.Companion.save
 import fixtures.builders.buildScooter
+import fixtures.isLeftWith
+import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction

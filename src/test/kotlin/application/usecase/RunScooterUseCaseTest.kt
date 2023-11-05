@@ -15,12 +15,12 @@ import com.example.application.port.input.ScooterRunning
 import com.example.application.port.output.ScooterRepository
 import com.example.application.port.output.UserRepository
 import com.example.application.usecase.RunScooterUseCase
+import fixtures.builders.DEFAULT_SCOOTER_ID
 import fixtures.builders.DEFAULT_USER_ID
+import fixtures.builders.buildScooter
 import fixtures.builders.buildUser
 import fixtures.isLeftWith
 import fixtures.isRightWith
-import fixtures.builders.DEFAULT_SCOOTER_ID
-import fixtures.builders.buildScooter
 import io.mockk.Ordering.ORDERED
 import io.mockk.clearAllMocks
 import io.mockk.every

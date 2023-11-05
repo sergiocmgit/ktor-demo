@@ -2,9 +2,9 @@ package infrastructure.adapter.input
 
 import com.example.application.port.input.GetUsers
 import com.example.application.port.input.GetUsersResponse
-import fixtures.builders.buildUserResponse
 import com.example.infrastructure.adapter.input.users
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import fixtures.builders.buildUserResponse
 import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText

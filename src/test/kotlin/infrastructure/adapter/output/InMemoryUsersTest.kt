@@ -2,12 +2,12 @@ package infrastructure.adapter.output
 
 import com.example.application.domain.UserId
 import com.example.application.domain.UserNotFound
-import fixtures.builders.buildUser
-import fixtures.isLeftWith
-import fixtures.isRightWith
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.UserTable
 import fixtures.DatabaseUtils.Companion.save
+import fixtures.builders.buildUser
+import fixtures.isLeftWith
+import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction

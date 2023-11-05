@@ -1,9 +1,9 @@
 package component
 
 import com.example.application.port.input.GetUsersResponse
+import fixtures.DatabaseUtils.Companion.save
 import fixtures.builders.buildUser
 import fixtures.builders.buildUserResponse
-import fixtures.DatabaseUtils.Companion.save
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
