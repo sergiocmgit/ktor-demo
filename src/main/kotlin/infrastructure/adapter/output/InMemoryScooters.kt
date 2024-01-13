@@ -14,6 +14,8 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
+// TODO: confirm if find() should return Either<ScooterNotFound, Scooter> or Scooter?;
+//  the latter would imply handling the nullability in the use case
 class InMemoryScooters : ScooterRepository {
     override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
         transaction {
