@@ -1,6 +1,9 @@
 package infrastructure.adapter.input
 
+import arrow.core.left
 import arrow.core.right
+import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.LockScooter
@@ -16,6 +19,7 @@ import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
@@ -27,9 +31,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 
-// TODO: add non-happy case tests
 class ScooterRoutesTest : RoutingTest() {
     private val getScooters = mockk<GetScooters>()
     private val runScooter = mockk<RunScooter>()
@@ -72,6 +77,25 @@ class ScooterRoutesTest : RoutingTest() {
             verify { runScooter(request) }
         }
 
+    @TestFactory
+    fun `should fail to run a scooter`() =
+        listOf(ScooterInvalidStatus, UserInvalidStatus).map { error ->
+            dynamicTest(error.javaClass.simpleName) {
+                testApplication {
+                    appSetup()
+                    // Given
+                    val scooterId = 1
+                    val userId = "A"
+                    val request = RunScooterRequest(scooterId, userId)
+                    every { runScooter(request) } returns error.left()
+                    // When
+                    val response = client.post("/scooters/$scooterId/run/$userId")
+                    // Then
+                    assertThat(response.status).isEqualTo(BadRequest)
+                }
+            }
+        }
+
     @Test
     fun `should lock a scooter`() =
         testApplication {
@@ -86,6 +110,25 @@ class ScooterRoutesTest : RoutingTest() {
             // Then
             assertThat(response.status).isEqualTo(OK)
             verify { lockScooter(request) }
+        }
+
+    @TestFactory
+    fun `should fail to lock a scooter`() =
+        listOf(ScooterInvalidStatus, UserInvalidStatus).map { error ->
+            dynamicTest(error.javaClass.simpleName) {
+                testApplication {
+                    appSetup()
+                    // Given
+                    val scooterId = 1
+                    val userId = "A"
+                    val request = LockScooterRequest(scooterId, userId)
+                    every { lockScooter(request) } returns error.left()
+                    // When
+                    val response = client.post("/scooters/$scooterId/lock/$userId")
+                    // Then
+                    assertThat(response.status).isEqualTo(BadRequest)
+                }
+            }
         }
 
     override fun ApplicationTestBuilder.appSetup() =
