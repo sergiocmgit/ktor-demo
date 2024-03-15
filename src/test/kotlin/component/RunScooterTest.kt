@@ -26,7 +26,3 @@ class RunScooterTest : ComponentTest() {
             assertThat(response.status).isEqualTo(OK)
         }
 }
-
-fun main() {
-    println('A' + 25)
-}
