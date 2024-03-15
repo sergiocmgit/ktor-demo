@@ -1,14 +1,9 @@
 package application.usecase
 
-import arrow.core.left
-import arrow.core.right
-import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterInvalidStatus
-import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
-import com.example.application.domain.UserNotFound
 import com.example.application.domain.UserStatus.DEACTIVATED
 import com.example.application.port.input.RunScooterRequest
 import com.example.application.port.input.ScooterRunning
@@ -49,8 +44,8 @@ class RunScooterUseCaseTest {
         val lockedScooter = buildScooter()
         val runningScooter = lockedScooter.copy(status = RUNNING)
         val expected = ScooterRunning(scooterId)
-        every { userRepository.find(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter.right()
+        every { userRepository.find(UserId(userId)) } returns buildUser()
+        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
         justRun { scooterRepository.update(runningScooter) }
         // When
         val result = useCase(RunScooterRequest(scooterId, userId))
@@ -64,20 +59,10 @@ class RunScooterUseCaseTest {
     }
 
     @Test
-    fun `should fail when cannot find user`() {
-        // Given
-        every { userRepository.find(UserId(userId)) } returns UserNotFound.left()
-        // When
-        val result = useCase(RunScooterRequest(scooterId, userId))
-        // Then
-        assertThat(result).isLeftWith(UserNotFound)
-    }
-
-    @Test
     fun `should fail when user is in an invalid status`() {
         // Given
         val user = buildUser(status = DEACTIVATED)
-        every { userRepository.find(UserId(userId)) } returns user.right()
+        every { userRepository.find(UserId(userId)) } returns user
         // When
         val result = useCase(RunScooterRequest(scooterId, userId))
         // Then
@@ -85,22 +70,11 @@ class RunScooterUseCaseTest {
     }
 
     @Test
-    fun `should fail when cannot find scooter`() {
-        // Given
-        every { userRepository.find(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(ScooterId(scooterId)) } returns ScooterNotFound.left()
-        // When
-        val result = useCase(RunScooterRequest(scooterId, userId))
-        // Then
-        assertThat(result).isLeftWith(ScooterNotFound)
-    }
-
-    @Test
     fun `should fail when scooter is in an invalid status`() {
         // Given
         val lockedScooter = buildScooter(status = RUNNING)
-        every { userRepository.find(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter.right()
+        every { userRepository.find(UserId(userId)) } returns buildUser()
+        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
         // When
         val result = useCase(RunScooterRequest(scooterId, userId))
         // Then

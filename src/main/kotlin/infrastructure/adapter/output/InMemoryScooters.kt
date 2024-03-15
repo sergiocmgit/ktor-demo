@@ -1,8 +1,5 @@
 package com.example.infrastructure.adapter.output
 
-import arrow.core.Either
-import arrow.core.left
-import arrow.core.right
 import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterNotFound
@@ -14,15 +11,14 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
-// TODO: confirm if find() should return Either<ScooterNotFound, Scooter> or Scooter?;
-//  the latter would imply handling the nullability in the use case
 class InMemoryScooters : ScooterRepository {
-    override fun find(scooterId: ScooterId): Either<ScooterNotFound, Scooter> =
+    override fun find(scooterId: ScooterId): Scooter =
         transaction {
             ScooterTable.select { ScooterTable.id eq scooterId.value }
-                .map { it.toDomain() }
-                .singleOrNull()?.right()
-                ?: ScooterNotFound.left()
+                .limit(1)
+                .singleOrNull()
+                ?.toDomain()
+                ?: throw ScooterNotFound
         }
 
     override fun findAll(): List<Scooter> =

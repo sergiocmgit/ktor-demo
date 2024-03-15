@@ -1,8 +1,5 @@
 package com.example.infrastructure.adapter.output
 
-import arrow.core.Either
-import arrow.core.left
-import arrow.core.right
 import com.example.application.domain.Name
 import com.example.application.domain.User
 import com.example.application.domain.UserId
@@ -19,12 +16,13 @@ class InMemoryUsers : UserRepository {
             UserTable.selectAll().map { it.toDomain() }
         }
 
-    override fun find(userId: UserId): Either<UserNotFound, User> =
+    override fun find(userId: UserId): User =
         transaction {
             UserTable.select { UserTable.id eq userId.value }
-                .map { it.toDomain() }
-                .singleOrNull()?.right()
-                ?: UserNotFound.left()
+                .limit(1)
+                .singleOrNull()
+                ?.toDomain()
+                ?: throw UserNotFound
         }
 
     private fun ResultRow.toDomain() =

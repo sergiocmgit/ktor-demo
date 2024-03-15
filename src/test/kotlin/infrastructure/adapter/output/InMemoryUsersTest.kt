@@ -6,9 +6,8 @@ import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.UserTable
 import fixtures.DatabaseUtils.Companion.save
 import fixtures.builders.buildUser
-import fixtures.isLeftWith
-import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.catchException
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
@@ -45,15 +44,15 @@ class InMemoryUsersTest : InMemoryTest {
             // When
             val result = inMemoryUsers.find(storedUser.id)
             // Then
-            assertThat(result).isRightWith(storedUser)
+            assertThat(result).isEqualTo(storedUser)
         }
 
         @Test
         fun `should fail when cannot find user`() {
             // When
-            val result = inMemoryUsers.find(UserId("some-id"))
+            val result = catchException { inMemoryUsers.find(UserId("some-id")) }
             // Then
-            assertThat(result).isLeftWith(UserNotFound)
+            assertThat(result).isEqualTo(UserNotFound)
         }
     }
 }

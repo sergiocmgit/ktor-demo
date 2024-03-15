@@ -17,8 +17,8 @@ class LockScooterUseCase(
 ) : LockScooter {
     override fun invoke(request: LockScooterRequest): Either<LockScooterError, ScooterLocked> =
         userRepository.find(UserId(request.userId))
-            .flatMap { it.checkIsActive() }
-            .flatMap { scooterRepository.find(ScooterId(request.scooterId)) }
+            .checkIsActive()
+            .map { scooterRepository.find(ScooterId(request.scooterId)) }
             .flatMap { it.locked(UserId(request.userId)) }
             .onRight { scooterRepository.update(it) }
             .map { ScooterLocked(it.id.value) }

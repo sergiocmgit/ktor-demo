@@ -1,16 +1,13 @@
 package com.example.infrastructure.adapter.input
 
 import com.example.application.domain.ScooterInvalidStatus
-import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.UserInvalidStatus
-import com.example.application.domain.UserNotFound
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.LockScooter
 import com.example.application.port.input.LockScooterRequest
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterRequest
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
-import io.ktor.http.HttpStatusCode.Companion.NotFound
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.call
 import io.ktor.server.resources.get
@@ -32,10 +29,6 @@ fun Route.scooters(
                 ScooterInvalidStatus,
                 UserInvalidStatus,
                 -> call.respond(BadRequest, it.javaClass.simpleName)
-
-                ScooterNotFound,
-                UserNotFound,
-                -> call.respond(NotFound, it.javaClass.simpleName)
             }
         })
     }
@@ -47,10 +40,6 @@ fun Route.scooters(
                 ScooterInvalidStatus,
                 UserInvalidStatus,
                 -> call.respond(BadRequest, it.javaClass.simpleName)
-
-                ScooterNotFound,
-                UserNotFound,
-                -> call.respond(NotFound, it.javaClass.simpleName)
             }
         })
     }

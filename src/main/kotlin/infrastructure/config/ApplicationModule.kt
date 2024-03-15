@@ -13,6 +13,7 @@ import kotlinx.serialization.json.Json
 fun Application.rootModule() {
     contentNegotiation()
     install(Resources)
+    statusPages()
 
     val inMemoryScooters = InMemoryScooters()
     val inMemoryUsers = InMemoryUsers()

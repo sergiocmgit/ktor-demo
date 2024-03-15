@@ -17,8 +17,8 @@ class RunScooterUseCase(
 ) : RunScooter {
     override fun invoke(request: RunScooterRequest): Either<RunScooterError, ScooterRunning> =
         userRepository.find(UserId(request.userId))
-            .flatMap { it.checkIsActive() }
-            .flatMap { scooterRepository.find(ScooterId(request.scooterId)) }
+            .checkIsActive()
+            .map { scooterRepository.find(ScooterId(request.scooterId)) }
             .flatMap { it.running(UserId(request.userId)) }
             .onRight { scooterRepository.update(it) }
             .map { ScooterRunning(it.id.value) }

@@ -7,9 +7,8 @@ import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.ScooterTable
 import fixtures.DatabaseUtils.Companion.save
 import fixtures.builders.buildScooter
-import fixtures.isLeftWith
-import fixtures.isRightWith
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.catchException
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
@@ -46,15 +45,15 @@ class InMemoryScootersTest : InMemoryTest {
             // When
             val result = inMemoryScooters.find(storedScooter.id)
             // Then
-            assertThat(result).isRightWith(storedScooter)
+            assertThat(result).isEqualTo(storedScooter)
         }
 
         @Test
         fun `should fail when cannot find a scooter`() {
             // When
-            val result = inMemoryScooters.find(storedScooter.id)
+            val result = catchException { inMemoryScooters.find(storedScooter.id) }
             // Then
-            assertThat(result).isLeftWith(ScooterNotFound)
+            assertThat(result).isEqualTo(ScooterNotFound)
         }
     }
 
@@ -71,6 +70,6 @@ class InMemoryScootersTest : InMemoryTest {
         inMemoryScooters.update(updatedScooter)
         val result = inMemoryScooters.find(storedScooter.id)
         // Then
-        assertThat(result).isRightWith(updatedScooter)
+        assertThat(result).isEqualTo(updatedScooter)
     }
 }
