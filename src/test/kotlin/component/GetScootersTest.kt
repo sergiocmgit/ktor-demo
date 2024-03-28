@@ -1,16 +1,16 @@
 package component
 
-import com.example.application.port.input.GetScootersResponse
+import com.example.infrastructure.adapter.input.GetScootersResponse
 import fixtures.DatabaseUtils.Companion.save
 import fixtures.builders.buildScooter
-import fixtures.builders.buildScooterResponse
+import fixtures.builders.buildScooterDto
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.testing.testApplication
+import kotlin.random.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import kotlin.random.Random
 
 class GetScootersTest : ComponentTest() {
     @Test
@@ -20,12 +20,11 @@ class GetScootersTest : ComponentTest() {
             // Given
             val scooterId = Random.nextInt()
             buildScooter(scooterId = scooterId).also(::save)
-            val expected = GetScootersResponse(listOf(buildScooterResponse(scooterId = scooterId)))
             // When
             val response = client.get("/scooters")
-            val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
+            val responseObject = objectMapper.readValue(response.bodyAsText(), GetScootersResponse::class.java)
             // Then
             assertThat(response.status).isEqualTo(OK)
-            assertThat(responseObject).isEqualTo(expected)
+            assertThat(responseObject).isEqualTo(GetScootersResponse(listOf(buildScooterDto(scooterId = scooterId))))
         }
 }

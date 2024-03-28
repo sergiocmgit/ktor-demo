@@ -4,7 +4,9 @@ import com.example.application.port.input.GetUsers
 import com.example.infrastructure.adapter.input.GetUsersResponse
 import com.example.infrastructure.adapter.input.users
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import fixtures.builders.buildUserResponse
+import fixtures.builders.buildUser
+import fixtures.builders.buildUserDto
+import fixtures.builders.randomUserId
 import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -33,14 +35,14 @@ class UserRoutesTest : RoutingTest() {
         testApplication {
             appSetup()
             // Given
-            val users = listOf(buildUserResponse())
-            every { getUsers() } returns users
+            val userId = randomUserId()
+            every { getUsers() } returns listOf(buildUser(userId))
             // When
             val response = client.get("/users")
             val responseObject = objectMapper.readValue(response.bodyAsText(), GetUsersResponse::class.java)
             // Then
             assertThat(response.status).isEqualTo(OK)
-            assertThat(responseObject).isEqualTo(GetUsersResponse(users))
+            assertThat(responseObject).isEqualTo(GetUsersResponse(listOf(buildUserDto(userId))))
         }
 
     override fun ApplicationTestBuilder.appSetup() =

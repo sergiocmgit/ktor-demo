@@ -1,6 +1,8 @@
 package com.example.infrastructure.adapter.input
 
+import com.example.application.domain.Scooter
 import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.ScooterStatus
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.LockScooter
@@ -14,15 +16,19 @@ import io.ktor.server.resources.get
 import io.ktor.server.resources.post
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
+import kotlinx.serialization.Serializable
 
 fun Route.scooters(
     getScooters: GetScooters,
     runScooter: RunScooter,
     lockScooter: LockScooter,
 ) {
-    get<Scooter> { call.respond(getScooters()) }
+    get<ScooterResource> {
+        GetScootersResponse(getScooters().map(::ScooterDto))
+            .let { call.respond(it) }
+    }
 
-    post<Scooter.Id.Run> { params ->
+    post<ScooterResource.Id.Run> { params ->
         val input = RunScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
         runScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
@@ -33,7 +39,7 @@ fun Route.scooters(
         })
     }
 
-    post<Scooter.Id.Lock> { params ->
+    post<ScooterResource.Id.Lock> { params ->
         val input = LockScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
         lockScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
@@ -43,4 +49,22 @@ fun Route.scooters(
             }
         })
     }
+}
+
+@Serializable
+data class GetScootersResponse(
+    val scooters: List<ScooterDto>,
+)
+
+@Serializable
+data class ScooterDto(
+    val id: Int,
+    val status: ScooterStatus,
+    val lastRider: String,
+) {
+    constructor(scooter: Scooter) : this(
+        id = scooter.id.value,
+        status = scooter.status,
+        lastRider = scooter.lastRider.value,
+    )
 }

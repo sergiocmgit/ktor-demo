@@ -1,6 +1,7 @@
 package com.example.infrastructure.adapter.input
 
 import com.example.application.domain.User
+import com.example.application.domain.UserStatus
 import com.example.application.port.input.GetUsers
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -26,11 +27,11 @@ data class GetUsersResponse(
 data class UserDto(
     val id: String,
     val name: String,
-    val status: String,
+    val status: UserStatus,
 ) {
     constructor(user: User) : this(
         id = user.id.value,
         name = user.name.value,
-        status = user.status.name,
+        status = user.status,
     )
 }

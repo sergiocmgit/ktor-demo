@@ -5,7 +5,7 @@ import com.example.application.domain.User
 import com.example.application.domain.UserId
 import com.example.application.domain.UserStatus
 import com.example.application.domain.UserStatus.ACTIVE
-import com.example.application.port.input.UserResponse
+import com.example.infrastructure.adapter.input.UserDto
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -23,8 +23,8 @@ fun buildUser(
     status,
 )
 
-fun buildUserResponse(userId: String = randomUserId()) =
-    UserResponse(
+fun buildUserDto(userId: String = randomUserId()) =
+    UserDto(
         userId,
         DEFAULT_USER_NAME,
         ACTIVE,

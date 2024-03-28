@@ -7,14 +7,15 @@ import com.example.application.domain.ScooterLocked
 import com.example.application.domain.ScooterRunning
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.input.GetScooters
-import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.LockScooter
 import com.example.application.port.input.LockScooterInput
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterInput
+import com.example.infrastructure.adapter.input.GetScootersResponse
 import com.example.infrastructure.adapter.input.scooters
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import fixtures.builders.buildScooterResponse
+import fixtures.builders.buildScooter
+import fixtures.builders.buildScooterDto
 import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -50,14 +51,13 @@ class ScooterRoutesTest : RoutingTest() {
         testApplication {
             appSetup()
             // Given
-            val expected = GetScootersResponse(listOf(buildScooterResponse()))
-            every { getScooters() } returns expected
+            every { getScooters() } returns listOf(buildScooter())
             // When
             val response = client.get("/scooters")
-            val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
+            val responseObject = objectMapper.readValue(response.bodyAsText(), GetScootersResponse::class.java)
             // Then
             assertThat(response.status).isEqualTo(OK)
-            assertThat(responseObject).isEqualTo(expected)
+            assertThat(responseObject).isEqualTo(GetScootersResponse(listOf(buildScooterDto())))
             verify { getScooters() }
         }
 

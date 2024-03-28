@@ -1,20 +1,7 @@
 package com.example.application.port.input
 
-import com.example.application.domain.ScooterStatus
-import kotlinx.serialization.Serializable
+import com.example.application.domain.Scooter
 
 interface GetScooters {
-    operator fun invoke(): GetScootersResponse
+    operator fun invoke(): List<Scooter>
 }
-
-@Serializable
-data class GetScootersResponse(
-    val scooters: List<ScooterResponse>,
-)
-
-@Serializable
-data class ScooterResponse(
-    val id: Int,
-    val status: ScooterStatus,
-    val lastRider: String,
-)

@@ -1,10 +1,10 @@
 package application.usecase
 
-import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.output.ScooterRepository
 import com.example.application.usecase.GetScootersUseCase
+import com.example.infrastructure.adapter.input.GetScootersResponse
 import fixtures.builders.buildScooter
-import fixtures.builders.buildScooterResponse
+import fixtures.builders.buildScooterDto
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -25,13 +25,11 @@ class GetScootersUseCaseTest {
     fun `should get all scooters`() {
         // Given
         val scooters = listOf(buildScooter(), buildScooter())
-        val scootersResponse = listOf(buildScooterResponse(), buildScooterResponse())
-        val expected = GetScootersResponse(scooters = scootersResponse)
         every { scooterRepository.findAll() } returns scooters
         // When
         val result = useCase()
         // Then
-        assertThat(result).isEqualTo(expected)
+        assertThat(result).isEqualTo(scooters)
         verify { scooterRepository.findAll() }
     }
 }
