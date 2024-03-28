@@ -1,5 +1,6 @@
 package config
 
+import com.example.application.domain.service.GetActiveUser
 import com.example.application.usecase.GetScootersUseCase
 import com.example.application.usecase.GetUsersUseCase
 import com.example.application.usecase.LockScooterUseCase
@@ -26,10 +27,11 @@ private fun Routing.scootersRouting(
     inMemoryScooters: InMemoryScooters,
     inMemoryUsers: InMemoryUsers,
 ) {
+    val getActiveUser = GetActiveUser(inMemoryUsers)
     scooters(
         getScooters = GetScootersUseCase(inMemoryScooters),
-        runScooter = RunScooterUseCase(inMemoryUsers, inMemoryScooters),
-        lockScooter = LockScooterUseCase(inMemoryUsers, inMemoryScooters),
+        runScooter = RunScooterUseCase(getActiveUser, inMemoryScooters),
+        lockScooter = LockScooterUseCase(getActiveUser, inMemoryScooters),
     )
 }
 

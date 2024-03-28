@@ -6,18 +6,17 @@ import com.example.application.domain.LockScooterError
 import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterLocked
 import com.example.application.domain.UserId
+import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.LockScooter
 import com.example.application.port.input.LockScooterInput
 import com.example.application.port.output.ScooterRepository
-import com.example.application.port.output.UserRepository
 
 class LockScooterUseCase(
-    private val userRepository: UserRepository,
+    private val getActiveUser: GetActiveUser,
     private val scooterRepository: ScooterRepository,
 ) : LockScooter {
     override fun invoke(input: LockScooterInput): Either<LockScooterError, ScooterLocked> =
-        userRepository.find(UserId(input.userId))
-            .checkIsActive()
+        getActiveUser(UserId(input.userId))
             .map { scooterRepository.find(ScooterId(input.scooterId)) }
             .flatMap { it.locked(UserId(input.userId)) }
             .onRight { scooterRepository.update(it) }

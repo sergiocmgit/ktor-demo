@@ -6,18 +6,17 @@ import com.example.application.domain.RunScooterError
 import com.example.application.domain.ScooterId
 import com.example.application.domain.ScooterRunning
 import com.example.application.domain.UserId
+import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterInput
 import com.example.application.port.output.ScooterRepository
-import com.example.application.port.output.UserRepository
 
 class RunScooterUseCase(
-    private val userRepository: UserRepository,
+    private val getActiveUser: GetActiveUser,
     private val scooterRepository: ScooterRepository,
 ) : RunScooter {
     override fun invoke(input: RunScooterInput): Either<RunScooterError, ScooterRunning> =
-        userRepository.find(UserId(input.userId))
-            .checkIsActive()
+        getActiveUser(UserId(input.userId))
             .map { scooterRepository.find(ScooterId(input.scooterId)) }
             .flatMap { it.running(UserId(input.userId)) }
             .onRight { scooterRepository.update(it) }
