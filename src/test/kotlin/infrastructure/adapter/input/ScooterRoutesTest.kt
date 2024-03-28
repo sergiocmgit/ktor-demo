@@ -3,15 +3,15 @@ package infrastructure.adapter.input
 import arrow.core.left
 import arrow.core.right
 import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.ScooterLocked
+import com.example.application.domain.ScooterRunning
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.GetScootersResponse
 import com.example.application.port.input.LockScooter
-import com.example.application.port.input.LockScooterRequest
+import com.example.application.port.input.LockScooterInput
 import com.example.application.port.input.RunScooter
-import com.example.application.port.input.RunScooterRequest
-import com.example.application.port.input.ScooterLocked
-import com.example.application.port.input.ScooterRunning
+import com.example.application.port.input.RunScooterInput
 import com.example.infrastructure.adapter.input.scooters
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import fixtures.builders.buildScooterResponse
@@ -68,13 +68,13 @@ class ScooterRoutesTest : RoutingTest() {
             // Given
             val scooterId = 1
             val userId = "A"
-            val request = RunScooterRequest(scooterId, userId)
-            every { runScooter(request) } returns ScooterRunning(scooterId).right()
+            val input = RunScooterInput(scooterId, userId)
+            every { runScooter(input) } returns ScooterRunning(scooterId).right()
             // When
             val response = client.post("/scooters/$scooterId/run/$userId")
             // Then
             assertThat(response.status).isEqualTo(OK)
-            verify { runScooter(request) }
+            verify { runScooter(input) }
         }
 
     @TestFactory
@@ -86,8 +86,8 @@ class ScooterRoutesTest : RoutingTest() {
                     // Given
                     val scooterId = 1
                     val userId = "A"
-                    val request = RunScooterRequest(scooterId, userId)
-                    every { runScooter(request) } returns error.left()
+                    val input = RunScooterInput(scooterId, userId)
+                    every { runScooter(input) } returns error.left()
                     // When
                     val response = client.post("/scooters/$scooterId/run/$userId")
                     // Then
@@ -103,13 +103,13 @@ class ScooterRoutesTest : RoutingTest() {
             // Given
             val scooterId = 1
             val userId = "A"
-            val request = LockScooterRequest(scooterId, userId)
-            every { lockScooter(request) } returns ScooterLocked(scooterId).right()
+            val input = LockScooterInput(scooterId, userId)
+            every { lockScooter(input) } returns ScooterLocked(scooterId).right()
             // When
             val response = client.post("/scooters/$scooterId/lock/$userId")
             // Then
             assertThat(response.status).isEqualTo(OK)
-            verify { lockScooter(request) }
+            verify { lockScooter(input) }
         }
 
     @TestFactory
@@ -121,8 +121,8 @@ class ScooterRoutesTest : RoutingTest() {
                     // Given
                     val scooterId = 1
                     val userId = "A"
-                    val request = LockScooterRequest(scooterId, userId)
-                    every { lockScooter(request) } returns error.left()
+                    val input = LockScooterInput(scooterId, userId)
+                    every { lockScooter(input) } returns error.left()
                     // When
                     val response = client.post("/scooters/$scooterId/lock/$userId")
                     // Then

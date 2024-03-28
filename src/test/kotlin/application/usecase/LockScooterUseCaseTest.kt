@@ -1,13 +1,13 @@
 package application.usecase
 
 import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.ScooterLocked
 import com.example.application.domain.ScooterStatus.LOCKED
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.UserStatus
-import com.example.application.port.input.LockScooterRequest
-import com.example.application.port.input.ScooterLocked
+import com.example.application.port.input.LockScooterInput
 import com.example.application.port.output.ScooterRepository
 import com.example.application.port.output.UserRepository
 import com.example.application.usecase.LockScooterUseCase
@@ -49,7 +49,7 @@ class LockScooterUseCaseTest {
         every { scooterRepository.find(runningScooter.id) } returns runningScooter
         justRun { scooterRepository.update(lockedScooter) }
         // When
-        val result = useCase(LockScooterRequest(scooterId, userId))
+        val result = useCase(LockScooterInput(scooterId, userId))
         // Then
         assertThat(result).isRightWith(expected)
         verify(ORDERED) {
@@ -65,7 +65,7 @@ class LockScooterUseCaseTest {
         val user = buildUser(status = UserStatus.DEACTIVATED)
         every { userRepository.find(UserId(userId)) } returns user
         // When
-        val result = useCase(LockScooterRequest(scooterId, userId))
+        val result = useCase(LockScooterInput(scooterId, userId))
         // Then
         assertThat(result).isLeftWith(UserInvalidStatus)
     }
@@ -77,7 +77,7 @@ class LockScooterUseCaseTest {
         every { userRepository.find(UserId(userId)) } returns buildUser()
         every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
         // When
-        val result = useCase(LockScooterRequest(scooterId, userId))
+        val result = useCase(LockScooterInput(scooterId, userId))
         // Then
         assertThat(result).isLeftWith(ScooterInvalidStatus)
     }

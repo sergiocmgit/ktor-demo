@@ -1,12 +1,12 @@
 package application.usecase
 
 import com.example.application.domain.ScooterInvalidStatus
+import com.example.application.domain.ScooterRunning
 import com.example.application.domain.ScooterStatus.RUNNING
 import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.UserStatus.DEACTIVATED
-import com.example.application.port.input.RunScooterRequest
-import com.example.application.port.input.ScooterRunning
+import com.example.application.port.input.RunScooterInput
 import com.example.application.port.output.ScooterRepository
 import com.example.application.port.output.UserRepository
 import com.example.application.usecase.RunScooterUseCase
@@ -48,7 +48,7 @@ class RunScooterUseCaseTest {
         every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
         justRun { scooterRepository.update(runningScooter) }
         // When
-        val result = useCase(RunScooterRequest(scooterId, userId))
+        val result = useCase(RunScooterInput(scooterId, userId))
         // Then
         assertThat(result).isRightWith(expected)
         verify(ORDERED) {
@@ -64,7 +64,7 @@ class RunScooterUseCaseTest {
         val user = buildUser(status = DEACTIVATED)
         every { userRepository.find(UserId(userId)) } returns user
         // When
-        val result = useCase(RunScooterRequest(scooterId, userId))
+        val result = useCase(RunScooterInput(scooterId, userId))
         // Then
         assertThat(result).isLeftWith(UserInvalidStatus)
     }
@@ -76,7 +76,7 @@ class RunScooterUseCaseTest {
         every { userRepository.find(UserId(userId)) } returns buildUser()
         every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
         // When
-        val result = useCase(RunScooterRequest(scooterId, userId))
+        val result = useCase(RunScooterInput(scooterId, userId))
         // Then
         assertThat(result).isLeftWith(ScooterInvalidStatus)
     }

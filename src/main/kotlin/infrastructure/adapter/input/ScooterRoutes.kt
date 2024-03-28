@@ -4,9 +4,9 @@ import com.example.application.domain.ScooterInvalidStatus
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.input.GetScooters
 import com.example.application.port.input.LockScooter
-import com.example.application.port.input.LockScooterRequest
+import com.example.application.port.input.LockScooterInput
 import com.example.application.port.input.RunScooter
-import com.example.application.port.input.RunScooterRequest
+import com.example.application.port.input.RunScooterInput
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.call
@@ -23,8 +23,8 @@ fun Route.scooters(
     get<Scooter> { call.respond(getScooters()) }
 
     post<Scooter.Id.Run> { params ->
-        val request = RunScooterRequest(scooterId = params.parent.scooterId, userId = params.userId)
-        runScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
+        val input = RunScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
+        runScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
                 ScooterInvalidStatus,
                 UserInvalidStatus,
@@ -34,8 +34,8 @@ fun Route.scooters(
     }
 
     post<Scooter.Id.Lock> { params ->
-        val request = LockScooterRequest(scooterId = params.parent.scooterId, userId = params.userId)
-        lockScooter(request).fold(ifRight = { call.respond(OK) }, ifLeft = {
+        val input = LockScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
+        lockScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
                 ScooterInvalidStatus,
                 UserInvalidStatus,
