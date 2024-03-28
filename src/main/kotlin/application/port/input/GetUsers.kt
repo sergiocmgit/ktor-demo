@@ -1,20 +1,7 @@
 package com.example.application.port.input
 
-import com.example.application.domain.UserStatus
-import kotlinx.serialization.Serializable
+import com.example.application.domain.User
 
 interface GetUsers {
-    operator fun invoke(): GetUsersResponse
+    operator fun invoke(): List<User>
 }
-
-@Serializable
-data class GetUsersResponse(
-    val users: List<UserResponse>,
-)
-
-@Serializable
-data class UserResponse(
-    val id: String,
-    val name: String,
-    val status: UserStatus,
-)

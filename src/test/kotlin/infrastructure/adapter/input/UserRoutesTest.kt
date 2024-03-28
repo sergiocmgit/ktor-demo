@@ -1,7 +1,7 @@
 package infrastructure.adapter.input
 
 import com.example.application.port.input.GetUsers
-import com.example.application.port.input.GetUsersResponse
+import com.example.infrastructure.adapter.input.GetUsersResponse
 import com.example.infrastructure.adapter.input.users
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import fixtures.builders.buildUserResponse
@@ -33,14 +33,14 @@ class UserRoutesTest : RoutingTest() {
         testApplication {
             appSetup()
             // Given
-            val expected = GetUsersResponse(listOf(buildUserResponse()))
-            every { getUsers() } returns expected
+            val users = listOf(buildUserResponse())
+            every { getUsers() } returns users
             // When
             val response = client.get("/users")
-            val responseObject = objectMapper.readValue(response.bodyAsText(), expected::class.java)
+            val responseObject = objectMapper.readValue(response.bodyAsText(), GetUsersResponse::class.java)
             // Then
             assertThat(response.status).isEqualTo(OK)
-            assertThat(responseObject).isEqualTo(expected)
+            assertThat(responseObject).isEqualTo(GetUsersResponse(users))
         }
 
     override fun ApplicationTestBuilder.appSetup() =

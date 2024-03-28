@@ -1,13 +1,36 @@
 package com.example.infrastructure.adapter.input
 
+import com.example.application.domain.User
 import com.example.application.port.input.GetUsers
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
+import kotlinx.serialization.Serializable
 
 fun Route.users(getUsers: GetUsers) =
     route("/users") {
-        get { call.respond(getUsers()) }
+        get {
+            GetUsersResponse(getUsers().map(::UserDto))
+                .let { call.respond(it) }
+        }
     }
+
+@Serializable
+data class GetUsersResponse(
+    val users: List<UserDto>,
+)
+
+@Serializable
+data class UserDto(
+    val id: String,
+    val name: String,
+    val status: String,
+) {
+    constructor(user: User) : this(
+        id = user.id.value,
+        name = user.name.value,
+        status = user.status.name,
+    )
+}
