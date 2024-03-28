@@ -7,7 +7,6 @@ import fixtures.builders.buildUserDto
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
-import io.ktor.server.testing.testApplication
 import java.util.UUID.randomUUID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,8 +14,7 @@ import org.junit.jupiter.api.Test
 class GetUsersTest : ComponentTest() {
     @Test
     fun `should get the users`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             val userId = randomUUID().toString()
             buildUser(userId = userId).also(::save)

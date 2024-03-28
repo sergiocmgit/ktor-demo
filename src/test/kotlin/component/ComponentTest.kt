@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import config.testRoutingModule
 import infrastructure.config.testRoutesModule
 import io.ktor.server.testing.ApplicationTestBuilder
+import io.ktor.server.testing.testApplication
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeAll

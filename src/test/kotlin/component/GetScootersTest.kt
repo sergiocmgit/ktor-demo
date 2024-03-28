@@ -7,7 +7,6 @@ import fixtures.builders.buildScooterDto
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
-import io.ktor.server.testing.testApplication
 import kotlin.random.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,8 +14,7 @@ import org.junit.jupiter.api.Test
 class GetScootersTest : ComponentTest() {
     @Test
     fun `should get the scooters`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             val scooterId = Random.nextInt()
             buildScooter(scooterId = scooterId).also(::save)

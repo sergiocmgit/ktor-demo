@@ -14,7 +14,6 @@ import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
 import io.ktor.server.testing.ApplicationTestBuilder
-import io.ktor.server.testing.testApplication
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -32,8 +31,7 @@ class UserRoutesTest : RoutingTest() {
 
     @Test
     fun `should get all the users`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             val userId = randomUserId()
             every { getUsers() } returns listOf(buildUser(userId))

@@ -25,7 +25,6 @@ import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
 import io.ktor.server.testing.ApplicationTestBuilder
-import io.ktor.server.testing.testApplication
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -48,8 +47,7 @@ class ScooterRoutesTest : RoutingTest() {
 
     @Test
     fun `should get all the scooters`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             every { getScooters() } returns listOf(buildScooter())
             // When
@@ -63,8 +61,7 @@ class ScooterRoutesTest : RoutingTest() {
 
     @Test
     fun `should run a scooter`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             val scooterId = 1
             val userId = "A"
@@ -81,8 +78,7 @@ class ScooterRoutesTest : RoutingTest() {
     fun `should fail to run a scooter`() =
         listOf(ScooterInvalidStatus, UserInvalidStatus).map { error ->
             dynamicTest(error.javaClass.simpleName) {
-                testApplication {
-                    appSetup()
+                test {
                     // Given
                     val scooterId = 1
                     val userId = "A"
@@ -98,8 +94,7 @@ class ScooterRoutesTest : RoutingTest() {
 
     @Test
     fun `should lock a scooter`() =
-        testApplication {
-            appSetup()
+        test {
             // Given
             val scooterId = 1
             val userId = "A"
@@ -116,8 +111,7 @@ class ScooterRoutesTest : RoutingTest() {
     fun `should fail to lock a scooter`() =
         listOf(ScooterInvalidStatus, UserInvalidStatus).map { error ->
             dynamicTest(error.javaClass.simpleName) {
-                testApplication {
-                    appSetup()
+                test {
                     // Given
                     val scooterId = 1
                     val userId = "A"
