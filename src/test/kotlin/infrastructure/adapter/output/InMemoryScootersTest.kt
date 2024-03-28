@@ -43,7 +43,7 @@ class InMemoryScootersTest : InMemoryTest {
             // Given
             save(storedScooter)
             // When
-            val result = inMemoryScooters.find(storedScooter.id)
+            val result = inMemoryScooters.findBy(storedScooter.id)
             // Then
             assertThat(result).isEqualTo(storedScooter)
         }
@@ -51,7 +51,7 @@ class InMemoryScootersTest : InMemoryTest {
         @Test
         fun `should fail when cannot find a scooter`() {
             // When
-            val result = catchException { inMemoryScooters.find(storedScooter.id) }
+            val result = catchException { inMemoryScooters.findBy(storedScooter.id) }
             // Then
             assertThat(result).isEqualTo(ScooterNotFound)
         }
@@ -68,7 +68,7 @@ class InMemoryScootersTest : InMemoryTest {
             )
         // When
         inMemoryScooters.update(updatedScooter)
-        val result = inMemoryScooters.find(storedScooter.id)
+        val result = inMemoryScooters.findBy(storedScooter.id)
         // Then
         assertThat(result).isEqualTo(updatedScooter)
     }

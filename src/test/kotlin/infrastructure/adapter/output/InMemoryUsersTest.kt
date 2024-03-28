@@ -42,7 +42,7 @@ class InMemoryUsersTest : InMemoryTest {
             // Given
             save(storedUser)
             // When
-            val result = inMemoryUsers.find(storedUser.id)
+            val result = inMemoryUsers.findBy(storedUser.id)
             // Then
             assertThat(result).isEqualTo(storedUser)
         }
@@ -50,7 +50,7 @@ class InMemoryUsersTest : InMemoryTest {
         @Test
         fun `should fail when cannot find user`() {
             // When
-            val result = catchException { inMemoryUsers.find(UserId("some-id")) }
+            val result = catchException { inMemoryUsers.findBy(UserId("some-id")) }
             // Then
             assertThat(result).isEqualTo(UserNotFound)
         }

@@ -6,7 +6,7 @@ import com.example.application.domain.ScooterId
 interface ScooterRepository {
     fun findAll(): List<Scooter>
 
-    fun find(scooterId: ScooterId): Scooter
+    fun findBy(scooterId: ScooterId): Scooter
 
     fun update(scooter: Scooter)
 }

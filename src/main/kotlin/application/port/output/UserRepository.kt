@@ -6,5 +6,5 @@ import com.example.application.domain.UserId
 interface UserRepository {
     fun findAll(): List<User>
 
-    fun find(userId: UserId): User
+    fun findBy(userId: UserId): User
 }

@@ -10,6 +10,6 @@ class GetActiveUser(
     private val userRepository: UserRepository
 ) {
     operator fun invoke(userId: UserId): Either<UserInvalidStatus, User> =
-        userRepository.find(userId)
+        userRepository.findBy(userId)
             .checkIsActive()
 }

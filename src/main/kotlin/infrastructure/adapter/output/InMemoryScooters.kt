@@ -12,7 +12,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
 class InMemoryScooters : ScooterRepository {
-    override fun find(scooterId: ScooterId): Scooter =
+    override fun findBy(scooterId: ScooterId): Scooter =
         transaction {
             ScooterTable.select { ScooterTable.id eq scooterId.value }
                 .limit(1)

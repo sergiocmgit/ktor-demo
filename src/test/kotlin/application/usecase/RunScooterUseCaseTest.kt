@@ -46,7 +46,7 @@ class RunScooterUseCaseTest {
         val runningScooter = lockedScooter.copy(status = RUNNING)
         val expected = ScooterRunning(scooterId)
         every { getActiveUser(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
+        every { scooterRepository.findBy(lockedScooter.id) } returns lockedScooter
         justRun { scooterRepository.update(runningScooter) }
         // When
         val result = useCase(RunScooterInput(scooterId, userId))
@@ -54,7 +54,7 @@ class RunScooterUseCaseTest {
         assertThat(result).isRightWith(expected)
         verify(ORDERED) {
             getActiveUser(UserId(userId))
-            scooterRepository.find(lockedScooter.id)
+            scooterRepository.findBy(lockedScooter.id)
             scooterRepository.update(runningScooter)
         }
     }
@@ -74,7 +74,7 @@ class RunScooterUseCaseTest {
         // Given
         val lockedScooter = buildScooter(status = RUNNING)
         every { getActiveUser(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.find(lockedScooter.id) } returns lockedScooter
+        every { scooterRepository.findBy(lockedScooter.id) } returns lockedScooter
         // When
         val result = useCase(RunScooterInput(scooterId, userId))
         // Then

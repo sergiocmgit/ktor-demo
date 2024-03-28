@@ -25,7 +25,7 @@ class GetActiveUserTest {
     @Test
     fun `should get an active user`() {
         // Given
-        every { userRepository.find(userId) } returns user
+        every { userRepository.findBy(userId) } returns user
         // When
         val result = getActiveUser(userId)
         // Then
@@ -35,7 +35,7 @@ class GetActiveUserTest {
     @Test
     fun `should fail when the user is not active`() {
         // Given
-        every { userRepository.find(userId) } returns user.copy(status = DEACTIVATED)
+        every { userRepository.findBy(userId) } returns user.copy(status = DEACTIVATED)
         // When
         val result = getActiveUser(userId)
         // Then

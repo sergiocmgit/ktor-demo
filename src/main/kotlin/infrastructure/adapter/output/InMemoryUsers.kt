@@ -16,7 +16,7 @@ class InMemoryUsers : UserRepository {
             UserTable.selectAll().map { it.toDomain() }
         }
 
-    override fun find(userId: UserId): User =
+    override fun findBy(userId: UserId): User =
         transaction {
             UserTable.select { UserTable.id eq userId.value }
                 .limit(1)

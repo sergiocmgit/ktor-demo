@@ -17,7 +17,7 @@ class RunScooterUseCase(
 ) : RunScooter {
     override fun invoke(input: RunScooterInput): Either<RunScooterError, ScooterRunning> =
         getActiveUser(UserId(input.userId))
-            .map { scooterRepository.find(ScooterId(input.scooterId)) }
+            .map { scooterRepository.findBy(ScooterId(input.scooterId)) }
             .flatMap { it.running(UserId(input.userId)) }
             .onRight { scooterRepository.update(it) }
             .map { ScooterRunning(it.id.value) }
