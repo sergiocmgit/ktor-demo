@@ -29,13 +29,20 @@ abstract class ComponentTest {
         }
 
         @JvmStatic
-        protected fun ApplicationTestBuilder.appSetup() =
+        private fun ApplicationTestBuilder.appSetup() =
             application {
                 testRoutesModule()
 
                 val inMemoryScooters = InMemoryScooters()
                 val inMemoryUsers = InMemoryUsers()
                 testRoutingModule(inMemoryScooters, inMemoryUsers)
+            }
+
+        @JvmStatic
+        protected fun test(block: suspend ApplicationTestBuilder.() -> Unit): Unit =
+            testApplication {
+                appSetup()
+                block()
             }
     }
 }
