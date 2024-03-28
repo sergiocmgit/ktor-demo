@@ -1,4 +1,5 @@
 package component
+// TODO: fix packages, choose a prefix and set up the directories
 
 import com.example.infrastructure.adapter.output.DatabaseFactory
 import com.example.infrastructure.adapter.output.InMemoryScooters
