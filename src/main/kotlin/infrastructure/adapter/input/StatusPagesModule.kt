@@ -1,4 +1,4 @@
-package com.example.infrastructure.config
+package com.example.infrastructure.adapter.input
 
 import com.example.application.domain.ScooterNotFound
 import com.example.application.domain.UserNotFound
@@ -8,7 +8,6 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 
-// TODO: add tests for the handling
 fun Application.statusPages() {
     install(StatusPages) {
         exception<Exception> { call, exception ->
