@@ -1,6 +1,9 @@
 # ktor-demo
 
-// TODO: fill this README
+This demonstration service exemplifies the application of **domain-driven
+design and hexagonal architecture** in modeling diverse use cases for **scooter
+rental businesses**. In this showcase, the **Ktor** framework has been employed
+to facilitate comparison with the well-established Spring services.
 
 ## Prerequisites
 
