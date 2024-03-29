@@ -1,4 +1,4 @@
-# ktor-demo
+# ktor-scooters-demo
 
 // TODO: fill this README
 
@@ -12,7 +12,7 @@
 
 1. Clone the repository
    ```sh
-   git clone git@github.com:sergiocmgit/ktor-demo.git
+   git clone git@github.com:sergiocmgit/ktor-scooters-demo.git
    ```
 2. Build the image
    ```sh
@@ -20,11 +20,11 @@
    ```
 3. Build the docker image
    ```sh
-   docker build -t ktor-demo .
+   docker build -t ktor-scooters-demo .
    ```
 4. Run the application
    ```sh
-   docker run -p 8080:8080 ktor-demo
+   docker run -p 8080:8080 ktor-scooters-demo
    ```
 5. Call the endpoints
     ```sh
