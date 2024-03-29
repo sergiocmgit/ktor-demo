@@ -7,6 +7,7 @@ import com.example.infrastructure.adapter.output.UserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.batchInsert
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseInstance {
@@ -15,9 +16,10 @@ object DatabaseInstance {
         val jdbcURL = "jdbc:h2:file:./build/$databaseName"
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
-            SchemaUtils.create(ScooterTable)
             SchemaUtils.create(UserTable)
-
+            SchemaUtils.create(ScooterTable)
+            UserTable.deleteAll()
+            ScooterTable.deleteAll()
             initUserTable()
             initScooterTable()
         }
