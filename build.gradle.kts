@@ -70,6 +70,6 @@ java {
 
 ktor {
     docker {
-        // TODO: make this work
+        localImageName.set("ktor-demo")
     }
 }
