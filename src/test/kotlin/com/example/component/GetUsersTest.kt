@@ -7,9 +7,9 @@ import com.example.infrastructure.adapter.input.GetUsersResponse
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
-import java.util.UUID.randomUUID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.util.UUID.randomUUID
 
 class GetUsersTest : ComponentTest() {
     @Test

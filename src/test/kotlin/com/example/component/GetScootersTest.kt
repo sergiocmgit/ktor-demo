@@ -7,9 +7,9 @@ import com.example.infrastructure.adapter.input.GetScootersResponse
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
-import kotlin.random.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.random.Random
 
 class GetScootersTest : ComponentTest() {
     @Test

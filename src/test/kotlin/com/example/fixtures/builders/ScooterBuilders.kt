@@ -12,7 +12,7 @@ const val DEFAULT_SCOOTER_ID: Int = 1
 fun buildScooter(
     scooterId: Int = DEFAULT_SCOOTER_ID,
     status: ScooterStatus = LOCKED,
-    lastRider: String = DEFAULT_USER_ID
+    lastRider: String = DEFAULT_USER_ID,
 ) = Scooter(
     ScooterId(scooterId),
     status,

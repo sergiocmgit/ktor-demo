@@ -7,7 +7,7 @@ import com.example.application.domain.UserInvalidStatus
 import com.example.application.port.output.UserRepository
 
 class GetActiveUser(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) {
     operator fun invoke(userId: UserId): Either<UserInvalidStatus, User> =
         userRepository.findBy(userId)

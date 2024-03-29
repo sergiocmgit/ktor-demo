@@ -14,7 +14,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class GetActiveUserTest {
-
     private val userRepository = mockk<UserRepository>()
     private val getActiveUser = GetActiveUser(userRepository)
 

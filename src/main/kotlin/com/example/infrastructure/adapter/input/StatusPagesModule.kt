@@ -13,7 +13,8 @@ fun Application.statusPages() {
         exception<Exception> { call, exception ->
             when (exception) {
                 is UserNotFound,
-                is ScooterNotFound -> call.respond(NotFound, exception.javaClass.simpleName)
+                is ScooterNotFound,
+                -> call.respond(NotFound, exception.javaClass.simpleName)
             }
         }
     }

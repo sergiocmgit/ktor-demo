@@ -14,21 +14,21 @@ import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 
 class StatusPagesModuleKtTest {
-
     @TestFactory
-    fun `should handle not found errors`() = listOf(
-        UserNotFound,
-        ScooterNotFound
-    ).map { domainException ->
-        dynamicTest(domainException.name) {
-            test {
-                // When
-                val response = client.get(domainException.name)
-                // Then
-                assertThat(response.status).isEqualTo(NotFound)
+    fun `should handle not found errors`() =
+        listOf(
+            UserNotFound,
+            ScooterNotFound,
+        ).map { domainException ->
+            dynamicTest(domainException.name) {
+                test {
+                    // When
+                    val response = client.get(domainException.name)
+                    // Then
+                    assertThat(response.status).isEqualTo(NotFound)
+                }
             }
         }
-    }
 
     private fun test(block: suspend ApplicationTestBuilder.() -> Unit): Unit =
         testApplication {
@@ -40,7 +40,7 @@ class StatusPagesModuleKtTest {
     private fun Route.buildRoutes() =
         listOf(
             UserNotFound,
-            ScooterNotFound
+            ScooterNotFound,
         ).map { domainException -> get(domainException.name) { throw domainException } }
 
     private val Exception.name get() = javaClass.simpleName

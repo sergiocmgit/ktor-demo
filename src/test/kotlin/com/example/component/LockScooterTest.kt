@@ -7,9 +7,9 @@ import com.example.fixtures.builders.buildUser
 import com.example.fixtures.builders.randomUserId
 import io.ktor.client.request.post
 import io.ktor.http.HttpStatusCode.Companion.OK
-import kotlin.random.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.random.Random
 
 class LockScooterTest : ComponentTest() {
     @Test
@@ -17,16 +17,17 @@ class LockScooterTest : ComponentTest() {
         test {
             // Given
             val userId = randomUserId().also { save(buildUser(userId = it)) }
-            val scooterId = Random.nextInt()
-                .also {
-                    save(
-                        buildScooter(
-                            scooterId = it,
-                            status = RUNNING,
-                            lastRider = userId,
-                        ),
-                    )
-                }
+            val scooterId =
+                Random.nextInt()
+                    .also {
+                        save(
+                            buildScooter(
+                                scooterId = it,
+                                status = RUNNING,
+                                lastRider = userId,
+                            ),
+                        )
+                    }
             // When
             val response = client.post("/scooters/$scooterId/lock/$userId")
             // Then

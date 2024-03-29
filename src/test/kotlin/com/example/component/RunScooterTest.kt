@@ -7,9 +7,9 @@ import com.example.fixtures.builders.buildUser
 import com.example.fixtures.builders.randomUserId
 import io.ktor.client.request.post
 import io.ktor.http.HttpStatusCode.Companion.OK
-import kotlin.random.Random
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.random.Random
 
 class RunScooterTest : ComponentTest() {
     @Test
