@@ -11,6 +11,7 @@ plugins {
     id("io.ktor.plugin") version "2.3.2"
     kotlin("plugin.serialization") version "1.8.21"
     id("org.jmailen.kotlinter") version "4.0.0"
+    id("org.jmailen.kotlinter") version "4.3.0"
     java
 }
 
