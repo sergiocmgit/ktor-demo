@@ -1,6 +1,6 @@
 package com.example.infrastructure.adapter.output
 
-import com.example.infrastructure.config.DatabaseFactory
+import com.example.infrastructure.config.DatabaseInstance
 import org.junit.jupiter.api.BeforeAll
 
 interface InMemoryTest {
@@ -8,7 +8,7 @@ interface InMemoryTest {
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
-            DatabaseFactory.init(InMemoryTest::class.java.simpleName)
+            DatabaseInstance.init(InMemoryTest::class.java.simpleName)
         }
     }
 }

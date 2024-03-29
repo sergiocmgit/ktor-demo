@@ -4,7 +4,7 @@ import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.ScooterTable
 import com.example.infrastructure.adapter.output.UserTable
-import com.example.infrastructure.config.DatabaseFactory
+import com.example.infrastructure.config.DatabaseInstance
 import com.example.infrastructure.config.routingModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.server.testing.ApplicationTestBuilder
@@ -20,7 +20,7 @@ abstract class ComponentTest {
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
-            DatabaseFactory.init(ComponentTest::class.java.simpleName)
+            DatabaseInstance.init(ComponentTest::class.java.simpleName)
             transaction {
                 ScooterTable.deleteAll()
                 UserTable.deleteAll()

@@ -8,7 +8,7 @@ import io.ktor.server.application.Application
 fun Application.rootModule() {
     val inMemoryScooters = InMemoryScooters()
     val inMemoryUsers = InMemoryUsers()
-    DatabaseFactory.init()
+    DatabaseInstance.init()
 
     routingModule(inMemoryScooters, inMemoryUsers)
     statusPages()
