@@ -1,11 +1,11 @@
 package component
 // TODO: fix packages, choose a prefix and set up the directories
 
-import com.example.infrastructure.adapter.output.DatabaseFactory
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.ScooterTable
 import com.example.infrastructure.adapter.output.UserTable
+import com.example.infrastructure.config.DatabaseFactory
 import com.example.infrastructure.config.routingModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.server.testing.ApplicationTestBuilder

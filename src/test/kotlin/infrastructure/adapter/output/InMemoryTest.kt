@@ -1,6 +1,6 @@
 package infrastructure.adapter.output
 
-import com.example.infrastructure.adapter.output.DatabaseFactory
+import com.example.infrastructure.config.DatabaseFactory
 import org.junit.jupiter.api.BeforeAll
 
 interface InMemoryTest {

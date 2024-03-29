@@ -1,5 +1,7 @@
-package com.example.infrastructure.adapter.output
+package com.example.infrastructure.config
 
+import com.example.infrastructure.adapter.output.ScooterTable
+import com.example.infrastructure.adapter.output.UserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
