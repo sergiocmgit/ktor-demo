@@ -6,6 +6,7 @@ import com.example.application.usecase.GetUsersUseCase
 import com.example.application.usecase.LockScooterUseCase
 import com.example.application.usecase.RunScooterUseCase
 import com.example.infrastructure.adapter.input.scooters
+import com.example.infrastructure.adapter.input.statusPages
 import com.example.infrastructure.adapter.input.users
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
@@ -23,6 +24,7 @@ fun Application.routingModule(
 ) {
     contentNegotiation()
     install(Resources)
+    statusPages()
     install(Routing) {
         scootersRouting(inMemoryScooters, inMemoryUsers)
         usersRouting(inMemoryUsers)
