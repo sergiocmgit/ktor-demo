@@ -20,11 +20,11 @@
    ```
 3. Build the docker image
    ```sh
-   docker build -t ktor-scooters-demo .
+   gradle buildImage
    ```
 4. Run the application
    ```sh
-   docker run -p 8080:8080 ktor-scooters-demo
+   gradle runDocker
    ```
 5. Call the endpoints
     ```sh
@@ -44,6 +44,9 @@
    ```
     ```sh
    curl -X POST "http://localhost:8080/scooters/1/run/C"
+   ```
+    ```sh
+   curl -X POST "http://localhost:8080/scooters/4/run/A"
    ```
     ```sh
    curl -X POST "http://localhost:8080/scooters/3/run/A"
