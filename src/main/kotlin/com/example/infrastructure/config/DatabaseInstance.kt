@@ -28,7 +28,7 @@ object DatabaseInstance {
             listOf(
                 Triple("A", "Antonio", UserStatus.ACTIVE),
                 Triple("B", "Barry", UserStatus.DEACTIVATED),
-            )
+            ),
         ) { (id, name, status) ->
             this[UserTable.id] = id
             this[UserTable.name] = name
@@ -41,8 +41,8 @@ object DatabaseInstance {
             listOf(
                 Triple(1, ScooterStatus.LOCKED, "A"),
                 Triple(2, ScooterStatus.RUNNING, "A"),
-                Triple(3, ScooterStatus.LOCKED, "B")
-            )
+                Triple(3, ScooterStatus.LOCKED, "B"),
+            ),
         ) { (id, status, lastRider) ->
             this[ScooterTable.id] = id
             this[ScooterTable.status] = status
