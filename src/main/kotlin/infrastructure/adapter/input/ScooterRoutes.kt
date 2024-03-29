@@ -23,12 +23,12 @@ fun Route.scooters(
     runScooter: RunScooter,
     lockScooter: LockScooter,
 ) {
-    get<ScooterResource> {
+    get<Scooters> {
         GetScootersResponse(getScooters().map(::ScooterDto))
             .let { call.respond(it) }
     }
 
-    post<ScooterResource.Id.Run> { params ->
+    post<Scooters.Id.Run> { params ->
         val input = RunScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
         runScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
@@ -39,7 +39,7 @@ fun Route.scooters(
         })
     }
 
-    post<ScooterResource.Id.Lock> { params ->
+    post<Scooters.Id.Lock> { params ->
         val input = LockScooterInput(scooterId = params.parent.scooterId, userId = params.userId)
         lockScooter(input).fold(ifRight = { call.respond(OK) }, ifLeft = {
             when (it) {
