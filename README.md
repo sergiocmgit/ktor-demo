@@ -26,6 +26,8 @@
    ```sh
    gradle runDocker
    ```
+
+// TODO: take this out of the installation section
 5. Call the endpoints
     ```sh
    curl -X GET "http://localhost:8080/users"
