@@ -7,13 +7,10 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import fixtures.builders.buildUser
 import fixtures.builders.buildUserDto
 import fixtures.builders.randomUserId
-import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.OK
-import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
-import io.ktor.server.testing.ApplicationTestBuilder
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -23,6 +20,8 @@ import org.junit.jupiter.api.Test
 
 class UserRoutesTest : RoutingTest() {
     private val getUsers = mockk<GetUsers>()
+
+    override fun Routing.setup() = users(getUsers)
 
     private val objectMapper = jacksonObjectMapper()
 
@@ -41,13 +40,5 @@ class UserRoutesTest : RoutingTest() {
             // Then
             assertThat(response.status).isEqualTo(OK)
             assertThat(responseObject).isEqualTo(GetUsersResponse(listOf(buildUserDto(userId))))
-        }
-
-    override fun ApplicationTestBuilder.appSetup() =
-        application {
-            testRoutesModule()
-            install(Routing) {
-                users(getUsers)
-            }
         }
 }

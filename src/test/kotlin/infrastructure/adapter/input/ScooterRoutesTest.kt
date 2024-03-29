@@ -16,15 +16,12 @@ import com.example.infrastructure.adapter.input.scooters
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import fixtures.builders.buildScooter
 import fixtures.builders.buildScooterDto
-import infrastructure.config.testRoutesModule
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
 import io.ktor.http.HttpStatusCode.Companion.OK
-import io.ktor.server.application.install
 import io.ktor.server.routing.Routing
-import io.ktor.server.testing.ApplicationTestBuilder
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -39,6 +36,8 @@ class ScooterRoutesTest : RoutingTest() {
     private val getScooters = mockk<GetScooters>()
     private val runScooter = mockk<RunScooter>()
     private val lockScooter = mockk<LockScooter>()
+
+    override fun Routing.setup() = scooters(getScooters, runScooter, lockScooter)
 
     private val objectMapper = jacksonObjectMapper()
 
@@ -122,14 +121,6 @@ class ScooterRoutesTest : RoutingTest() {
                     // Then
                     assertThat(response.status).isEqualTo(BadRequest)
                 }
-            }
-        }
-
-    override fun ApplicationTestBuilder.appSetup() =
-        application {
-            testRoutesModule()
-            install(Routing) {
-                scooters(getScooters, runScooter, lockScooter)
             }
         }
 }

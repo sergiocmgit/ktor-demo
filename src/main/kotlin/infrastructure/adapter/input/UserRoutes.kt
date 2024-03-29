@@ -10,13 +10,14 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import kotlinx.serialization.Serializable
 
-fun Route.users(getUsers: GetUsers) =
+fun Route.users(getUsers: GetUsers) {
     route("/users") {
         get {
             GetUsersResponse(getUsers().map(::UserDto))
                 .let { call.respond(it) }
         }
     }
+}
 
 @Serializable
 data class GetUsersResponse(

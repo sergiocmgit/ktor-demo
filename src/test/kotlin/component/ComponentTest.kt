@@ -6,9 +6,8 @@ import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.ScooterTable
 import com.example.infrastructure.adapter.output.UserTable
+import com.example.infrastructure.config.routingModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import config.testRoutingModule
-import infrastructure.config.testRoutesModule
 import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
 import org.jetbrains.exposed.sql.deleteAll
@@ -32,11 +31,9 @@ abstract class ComponentTest {
         @JvmStatic
         private fun ApplicationTestBuilder.appSetup() =
             application {
-                testRoutesModule()
-
                 val inMemoryScooters = InMemoryScooters()
                 val inMemoryUsers = InMemoryUsers()
-                testRoutingModule(inMemoryScooters, inMemoryUsers)
+                routingModule(inMemoryScooters, inMemoryUsers)
             }
 
         @JvmStatic
