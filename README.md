@@ -1,4 +1,4 @@
-# ktor-scooters-demo
+# ktor-demo
 
 // TODO: fill this README
 
@@ -12,7 +12,7 @@
 
 1. Clone the repository
    ```sh
-   git clone git@github.com:sergiocmgit/ktor-scooters-demo.git
+   git clone git@github.com:sergiocmgit/ktor-demo.git
    ```
 2. Build the image
    ```sh
