@@ -5,7 +5,7 @@
 ## Prerequisites
 
 - Java 17
-- Gradle 8.5
+- Gradle 8.7
 - Docker
 
 ## Installation
