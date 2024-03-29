@@ -60,10 +60,16 @@ tasks {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "18"
+        jvmTarget = "17"
     }
 }
 
 java {
-    targetCompatibility = JavaVersion.VERSION_18
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+ktor {
+    docker {
+        // TODO: make this work
+    }
 }
