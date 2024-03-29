@@ -8,7 +8,6 @@ to facilitate comparison with the well-established Spring services.
 ## Prerequisites
 
 - Java 17
-- Gradle 8.7
 - Docker
 
 ## Installation
@@ -19,15 +18,15 @@ to facilitate comparison with the well-established Spring services.
    ```
 2. Build the image
    ```sh
-   gradle build
+   ./gradlew build
    ```
 3. Build the docker image
    ```sh
-   gradle buildImage
+   ./gradlew buildImage
    ```
 4. Run the application
    ```sh
-   gradle runDocker
+   ./gradlew runDocker
    ```
 
 ## Test the endpoints
