@@ -10,17 +10,17 @@ import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.LockScooter
 import com.example.application.port.input.LockScooterInput
 import com.example.application.port.output.FindScooterByScooterId
-import com.example.application.port.output.ScooterRepository
+import com.example.application.port.output.UpdateScooter
 
 class LockScooterUseCase(
     private val getActiveUser: GetActiveUser,
     private val findScooterByScooterId: FindScooterByScooterId,
-    private val scooterRepository: ScooterRepository,
+    private val updateScooter: UpdateScooter,
 ) : LockScooter {
     override fun invoke(input: LockScooterInput): Either<LockScooterError, ScooterLocked> =
         getActiveUser(UserId(input.userId))
             .map { findScooterByScooterId(ScooterId(input.scooterId)) }
             .flatMap { it.locked(UserId(input.userId)) }
-            .onRight { scooterRepository.update(it) }
+            .onRight { updateScooter(it) }
             .map { ScooterLocked(it.id.value) }
 }

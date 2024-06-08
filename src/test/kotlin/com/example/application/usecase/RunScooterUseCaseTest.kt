@@ -10,7 +10,7 @@ import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.RunScooterInput
 import com.example.application.port.output.FindScooterByScooterId
-import com.example.application.port.output.ScooterRepository
+import com.example.application.port.output.UpdateScooter
 import com.example.fixtures.builders.DEFAULT_SCOOTER_ID
 import com.example.fixtures.builders.DEFAULT_USER_ID
 import com.example.fixtures.builders.buildScooter
@@ -30,9 +30,9 @@ import org.junit.jupiter.api.Test
 class RunScooterUseCaseTest {
     private val getActiveUser = mockk<GetActiveUser>()
     private val findScooterByScooterId = mockk<FindScooterByScooterId>()
-    private val scooterRepository = mockk<ScooterRepository>()
+    private val updateScooter = mockk<UpdateScooter>()
 
-    private val useCase = RunScooterUseCase(getActiveUser, findScooterByScooterId, scooterRepository)
+    private val useCase = RunScooterUseCase(getActiveUser, findScooterByScooterId, updateScooter)
 
     private val userId = DEFAULT_USER_ID
     private val scooterId = DEFAULT_SCOOTER_ID
@@ -48,7 +48,7 @@ class RunScooterUseCaseTest {
         val expected = ScooterRunning(scooterId)
         every { getActiveUser(UserId(userId)) } returns buildUser().right()
         every { findScooterByScooterId(lockedScooter.id) } returns lockedScooter
-        justRun { scooterRepository.update(runningScooter) }
+        justRun { updateScooter(runningScooter) }
         // When
         val result = useCase(RunScooterInput(scooterId, userId))
         // Then
@@ -56,7 +56,7 @@ class RunScooterUseCaseTest {
         verify(ORDERED) {
             getActiveUser(UserId(userId))
             findScooterByScooterId(lockedScooter.id)
-            scooterRepository.update(runningScooter)
+            updateScooter(runningScooter)
         }
     }
 

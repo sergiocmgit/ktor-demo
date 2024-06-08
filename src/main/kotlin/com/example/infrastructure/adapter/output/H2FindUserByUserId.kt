@@ -6,7 +6,6 @@ import com.example.application.domain.UserId
 import com.example.application.domain.UserNotFound
 import com.example.application.port.output.FindUserByUserId
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -14,7 +13,6 @@ class H2FindUserByUserId : FindUserByUserId {
     override fun invoke(userId: UserId): User =
         transaction {
             UserTable.select { UserTable.id eq userId.value }
-                .limit(1)
                 .singleOrNull()
                 ?.toDomain()
                 ?: throw UserNotFound
