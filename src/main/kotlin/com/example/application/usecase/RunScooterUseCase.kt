@@ -9,15 +9,17 @@ import com.example.application.domain.UserId
 import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.RunScooter
 import com.example.application.port.input.RunScooterInput
+import com.example.application.port.output.FindScooterByScooterId
 import com.example.application.port.output.ScooterRepository
 
 class RunScooterUseCase(
     private val getActiveUser: GetActiveUser,
+    private val findScooterByScooterId: FindScooterByScooterId,
     private val scooterRepository: ScooterRepository,
 ) : RunScooter {
     override fun invoke(input: RunScooterInput): Either<RunScooterError, ScooterRunning> =
         getActiveUser(UserId(input.userId))
-            .map { scooterRepository.findBy(ScooterId(input.scooterId)) }
+            .map { findScooterByScooterId(ScooterId(input.scooterId)) }
             .flatMap { it.running(UserId(input.userId)) }
             .onRight { scooterRepository.update(it) }
             .map { ScooterRunning(it.id.value) }

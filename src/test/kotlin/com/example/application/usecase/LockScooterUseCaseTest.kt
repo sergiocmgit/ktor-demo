@@ -10,6 +10,7 @@ import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
 import com.example.application.domain.service.GetActiveUser
 import com.example.application.port.input.LockScooterInput
+import com.example.application.port.output.FindScooterByScooterId
 import com.example.application.port.output.ScooterRepository
 import com.example.fixtures.builders.DEFAULT_SCOOTER_ID
 import com.example.fixtures.builders.DEFAULT_USER_ID
@@ -29,9 +30,10 @@ import org.junit.jupiter.api.Test
 
 class LockScooterUseCaseTest {
     private val getActiveUser = mockk<GetActiveUser>()
+    private val findScooterByScooterId = mockk<FindScooterByScooterId>()
     private val scooterRepository = mockk<ScooterRepository>()
 
-    private val useCase = LockScooterUseCase(getActiveUser, scooterRepository)
+    private val useCase = LockScooterUseCase(getActiveUser, findScooterByScooterId, scooterRepository)
 
     private val userId = DEFAULT_USER_ID
     private val scooterId = DEFAULT_SCOOTER_ID
@@ -46,7 +48,7 @@ class LockScooterUseCaseTest {
         val lockedScooter = runningScooter.copy(status = LOCKED)
         val expected = ScooterLocked(scooterId)
         every { getActiveUser(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.findBy(runningScooter.id) } returns runningScooter
+        every { findScooterByScooterId(runningScooter.id) } returns runningScooter
         justRun { scooterRepository.update(lockedScooter) }
         // When
         val result = useCase(LockScooterInput(scooterId, userId))
@@ -54,7 +56,7 @@ class LockScooterUseCaseTest {
         assertThat(result).isRightWith(expected)
         verify(ORDERED) {
             getActiveUser(UserId(userId))
-            scooterRepository.findBy(runningScooter.id)
+            findScooterByScooterId(runningScooter.id)
             scooterRepository.update(lockedScooter)
         }
     }
@@ -74,7 +76,7 @@ class LockScooterUseCaseTest {
         // Given
         val lockedScooter = buildScooter(status = LOCKED)
         every { getActiveUser(UserId(userId)) } returns buildUser().right()
-        every { scooterRepository.findBy(lockedScooter.id) } returns lockedScooter
+        every { findScooterByScooterId(lockedScooter.id) } returns lockedScooter
         // When
         val result = useCase(LockScooterInput(scooterId, userId))
         // Then
