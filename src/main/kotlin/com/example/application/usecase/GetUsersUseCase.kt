@@ -2,10 +2,10 @@ package com.example.application.usecase
 
 import com.example.application.domain.User
 import com.example.application.port.input.GetUsers
-import com.example.application.port.output.UserRepository
+import com.example.application.port.output.FindAllUsers
 
 class GetUsersUseCase(
-    private val userRepository: UserRepository,
+    private val findAllUsers: FindAllUsers,
 ) : GetUsers {
-    override fun invoke(): List<User> = userRepository.findAll()
+    override fun invoke(): List<User> = findAllUsers()
 }

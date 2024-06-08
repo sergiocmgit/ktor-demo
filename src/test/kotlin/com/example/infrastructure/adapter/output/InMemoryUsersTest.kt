@@ -22,17 +22,6 @@ class InMemoryUsersTest : InMemoryTest {
         transaction { UserTable.deleteAll() }
     }
 
-    @Test
-    fun `should find all users`() {
-        // Given
-        save(storedUser)
-        val expected = listOf(storedUser)
-        // When
-        val result = inMemoryUsers.findAll()
-        // Then
-        assertThat(result).isEqualTo(expected)
-    }
-
     @Nested
     inner class FindById {
         @Test

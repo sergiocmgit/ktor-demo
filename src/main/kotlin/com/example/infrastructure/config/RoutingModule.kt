@@ -1,6 +1,7 @@
 package com.example.infrastructure.config
 
 import com.example.application.domain.service.GetActiveUser
+import com.example.application.port.output.FindAllUsers
 import com.example.application.usecase.GetScootersUseCase
 import com.example.application.usecase.GetUsersUseCase
 import com.example.application.usecase.LockScooterUseCase
@@ -21,13 +22,14 @@ import kotlinx.serialization.json.Json
 fun Application.routingModule(
     inMemoryScooters: InMemoryScooters,
     inMemoryUsers: InMemoryUsers,
+    findAllUsers: FindAllUsers,
 ) {
     contentNegotiation()
     install(Resources)
     statusPages()
     install(Routing) {
         scootersRouting(inMemoryScooters, inMemoryUsers)
-        usersRouting(inMemoryUsers)
+        usersRouting(findAllUsers)
     }
 }
 
@@ -43,9 +45,9 @@ private fun Routing.scootersRouting(
     )
 }
 
-private fun Routing.usersRouting(inMemoryUsers: InMemoryUsers) {
+private fun Routing.usersRouting(findAllUsers: FindAllUsers) {
     users(
-        getUsers = GetUsersUseCase(inMemoryUsers),
+        getUsers = GetUsersUseCase(findAllUsers),
     )
 }
 

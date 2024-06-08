@@ -3,20 +3,15 @@ package com.example.infrastructure.adapter.output
 import com.example.application.domain.Name
 import com.example.application.domain.User
 import com.example.application.domain.UserId
-import com.example.application.domain.UserNotFound
-import com.example.application.port.output.UserRepository
+import com.example.application.port.output.FindAllUsers
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class InMemoryUsers : UserRepository {
-    override fun findBy(userId: UserId): User =
+class H2FindAllUsers : FindAllUsers {
+    override fun invoke(): List<User> =
         transaction {
-            UserTable.select { UserTable.id eq userId.value }
-                .limit(1)
-                .singleOrNull()
-                ?.toDomain()
-                ?: throw UserNotFound
+            UserTable.selectAll().map { it.toDomain() }
         }
 
     private fun ResultRow.toDomain() =

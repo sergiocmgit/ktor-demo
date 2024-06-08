@@ -1,5 +1,6 @@
 package com.example.component
 
+import com.example.infrastructure.adapter.output.H2FindAllUsers
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.ScooterTable
@@ -32,7 +33,8 @@ abstract class ComponentTest {
             application {
                 val inMemoryScooters = InMemoryScooters()
                 val inMemoryUsers = InMemoryUsers()
-                routingModule(inMemoryScooters, inMemoryUsers)
+                val findAllUsers = H2FindAllUsers()
+                routingModule(inMemoryScooters, inMemoryUsers, findAllUsers)
             }
 
         @JvmStatic

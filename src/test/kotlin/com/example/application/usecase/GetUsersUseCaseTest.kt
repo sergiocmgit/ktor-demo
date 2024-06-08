@@ -1,6 +1,6 @@
 package com.example.application.usecase
 
-import com.example.application.port.output.UserRepository
+import com.example.application.port.output.FindAllUsers
 import com.example.fixtures.builders.buildUser
 import com.example.fixtures.builders.randomUserId
 import io.mockk.clearAllMocks
@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GetUsersUseCaseTest {
-    private val userRepository = mockk<UserRepository>()
+    private val findAllUsers = mockk<FindAllUsers>()
 
-    private val useCase = GetUsersUseCase(userRepository)
+    private val useCase = GetUsersUseCase(findAllUsers)
 
     @BeforeEach
     fun setUp() = clearAllMocks()
@@ -24,11 +24,11 @@ class GetUsersUseCaseTest {
         // Given
         val (userId1, userId2) = randomUserId() to randomUserId()
         val users = listOf(buildUser(userId = userId1), buildUser(userId = userId2))
-        every { userRepository.findAll() } returns users
+        every { findAllUsers() } returns users
         // When
         val result = useCase()
         // Then
         assertThat(result).isEqualTo(users)
-        verify { userRepository.findAll() }
+        verify { findAllUsers() }
     }
 }

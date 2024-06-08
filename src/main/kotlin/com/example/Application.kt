@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.infrastructure.adapter.output.H2FindAllUsers
 import com.example.infrastructure.adapter.output.InMemoryScooters
 import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.config.DatabaseInstance
@@ -11,8 +12,9 @@ fun main() {
     embeddedServer(factory = Netty, port = 8080) {
         val inMemoryScooters = InMemoryScooters()
         val inMemoryUsers = InMemoryUsers()
+        val findAllUsers = H2FindAllUsers()
         DatabaseInstance.init()
 
-        routingModule(inMemoryScooters, inMemoryUsers)
+        routingModule(inMemoryScooters, inMemoryUsers, findAllUsers)
     }.start(wait = true)
 }
