@@ -1,8 +1,8 @@
 package com.example.component
 
 import com.example.infrastructure.adapter.output.H2FindAllUsers
+import com.example.infrastructure.adapter.output.H2FindUserByUserId
 import com.example.infrastructure.adapter.output.InMemoryScooters
-import com.example.infrastructure.adapter.output.InMemoryUsers
 import com.example.infrastructure.adapter.output.ScooterTable
 import com.example.infrastructure.adapter.output.UserTable
 import com.example.infrastructure.config.DatabaseInstance
@@ -32,9 +32,9 @@ abstract class ComponentTest {
         private fun ApplicationTestBuilder.appSetup() =
             application {
                 val inMemoryScooters = InMemoryScooters()
-                val inMemoryUsers = InMemoryUsers()
                 val findAllUsers = H2FindAllUsers()
-                routingModule(inMemoryScooters, inMemoryUsers, findAllUsers)
+                val findUserByUserId = H2FindUserByUserId()
+                routingModule(inMemoryScooters, findAllUsers, findUserByUserId)
             }
 
         @JvmStatic

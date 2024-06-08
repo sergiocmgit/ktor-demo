@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class InMemoryScootersTest : InMemoryTest {
+class InMemoryScootersTest : H2Test {
     private val inMemoryScooters = InMemoryScooters()
 
     private val storedScooter = buildScooter()

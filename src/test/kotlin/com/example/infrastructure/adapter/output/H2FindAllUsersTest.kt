@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class H2FindAllUsersTest : InMemoryTest {
+class H2FindAllUsersTest : H2Test {
     private val h2FindAllUsers = H2FindAllUsers()
 
     private val storedUser = buildUser()

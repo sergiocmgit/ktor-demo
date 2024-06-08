@@ -4,12 +4,12 @@ import arrow.core.Either
 import com.example.application.domain.User
 import com.example.application.domain.UserId
 import com.example.application.domain.UserInvalidStatus
-import com.example.application.port.output.UserRepository
+import com.example.application.port.output.FindUserByUserId
 
 class GetActiveUser(
-    private val userRepository: UserRepository,
+    private val findUserByUserId: FindUserByUserId,
 ) {
     operator fun invoke(userId: UserId): Either<UserInvalidStatus, User> =
-        userRepository.findBy(userId)
+        findUserByUserId(userId)
             .checkIsActive()
 }
