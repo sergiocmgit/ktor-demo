@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.infrastructure.adapter.output.H2FindAllScooters
 import com.example.infrastructure.adapter.output.H2FindAllUsers
 import com.example.infrastructure.adapter.output.H2FindUserByUserId
 import com.example.infrastructure.adapter.output.InMemoryScooters
@@ -11,10 +12,11 @@ import io.ktor.server.netty.Netty
 fun main() {
     embeddedServer(factory = Netty, port = 8080) {
         val inMemoryScooters = InMemoryScooters()
+        val findAllScooters = H2FindAllScooters()
         val findAllUsers = H2FindAllUsers()
         val findUserByUserId = H2FindUserByUserId()
         DatabaseInstance.init()
 
-        routingModule(inMemoryScooters, findAllUsers, findUserByUserId)
+        routingModule(inMemoryScooters, findAllScooters, findAllUsers, findUserByUserId)
     }.start(wait = true)
 }

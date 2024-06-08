@@ -1,6 +1,7 @@
 package com.example.infrastructure.config
 
 import com.example.application.domain.service.GetActiveUser
+import com.example.application.port.output.FindAllScooters
 import com.example.application.port.output.FindAllUsers
 import com.example.application.port.output.FindUserByUserId
 import com.example.application.usecase.GetScootersUseCase
@@ -21,6 +22,7 @@ import kotlinx.serialization.json.Json
 
 fun Application.routingModule(
     inMemoryScooters: InMemoryScooters,
+    findAllScooters: FindAllScooters,
     findAllUsers: FindAllUsers,
     findUserByUserId: FindUserByUserId,
 ) {
@@ -28,18 +30,19 @@ fun Application.routingModule(
     install(Resources)
     statusPages()
     install(Routing) {
-        scootersRouting(inMemoryScooters, findUserByUserId)
+        scootersRouting(inMemoryScooters, findAllScooters, findUserByUserId)
         usersRouting(findAllUsers)
     }
 }
 
 private fun Routing.scootersRouting(
     inMemoryScooters: InMemoryScooters,
+    findAllScooters: FindAllScooters,
     findUserByUserId: FindUserByUserId,
 ) {
     val getActiveUser = GetActiveUser(findUserByUserId)
     scooters(
-        getScooters = GetScootersUseCase(inMemoryScooters),
+        getScooters = GetScootersUseCase(findAllScooters),
         runScooter = RunScooterUseCase(getActiveUser, inMemoryScooters),
         lockScooter = LockScooterUseCase(getActiveUser, inMemoryScooters),
     )

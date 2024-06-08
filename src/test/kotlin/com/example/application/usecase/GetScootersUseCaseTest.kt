@@ -1,6 +1,6 @@
 package com.example.application.usecase
 
-import com.example.application.port.output.ScooterRepository
+import com.example.application.port.output.FindAllScooters
 import com.example.fixtures.builders.buildScooter
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GetScootersUseCaseTest {
-    private val scooterRepository = mockk<ScooterRepository>()
+    private val findAllScooters = mockk<FindAllScooters>()
 
-    private val useCase = GetScootersUseCase(scooterRepository)
+    private val useCase = GetScootersUseCase(findAllScooters)
 
     @BeforeEach
     fun setUp() = clearAllMocks()
@@ -22,11 +22,11 @@ class GetScootersUseCaseTest {
     fun `should get all scooters`() {
         // Given
         val scooters = listOf(buildScooter(), buildScooter())
-        every { scooterRepository.findAll() } returns scooters
+        every { findAllScooters() } returns scooters
         // When
         val result = useCase()
         // Then
         assertThat(result).isEqualTo(scooters)
-        verify { scooterRepository.findAll() }
+        verify { findAllScooters() }
     }
 }

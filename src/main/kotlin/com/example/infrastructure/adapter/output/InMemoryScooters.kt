@@ -7,7 +7,6 @@ import com.example.application.domain.UserId
 import com.example.application.port.output.ScooterRepository
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
@@ -19,11 +18,6 @@ class InMemoryScooters : ScooterRepository {
                 .singleOrNull()
                 ?.toDomain()
                 ?: throw ScooterNotFound
-        }
-
-    override fun findAll(): List<Scooter> =
-        transaction {
-            ScooterTable.selectAll().map { it.toDomain() }
         }
 
     override fun update(scooter: Scooter) {

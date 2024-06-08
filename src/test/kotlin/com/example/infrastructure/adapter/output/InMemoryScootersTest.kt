@@ -23,17 +23,6 @@ class InMemoryScootersTest : H2Test {
         transaction { ScooterTable.deleteAll() }
     }
 
-    @Test
-    fun `should find all scooters`() {
-        // Given
-        save(storedScooter)
-        val expected = listOf(storedScooter)
-        // When
-        val result = inMemoryScooters.findAll()
-        // Then
-        assertThat(result).isEqualTo(expected)
-    }
-
     @Nested
     inner class FindById {
         @Test
